@@ -9,3 +9,7 @@ dist/
 build/
 
 SciExpeMAPI.egg-info/
+
+SciExpeM_API.egg-info/
+
+Examples/.ipynb_checkpoints/
