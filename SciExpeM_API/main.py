@@ -1,7 +1,8 @@
-from API import *
+from SciExpeM_API.API import *
 from django.db.models import Q
 from datetime import datetime
-from Models import ChemModel
+from SciExpeM_API.Models import ChemModel
+
 
 
 def main():

@@ -1,13 +1,13 @@
 import requests
 from requests.exceptions import RequestException
-from settings import IP, PORT, TOKEN, HTTPS
+from .settings import IP, PORT, TOKEN, HTTPS
 from enum import Enum
 from django.db.models import Q
-from QSerializer import QSerializer
-from Models import *
+from .QSerializer import QSerializer
+from .Models import *
 import json
 import sys
-from exceptionsAPI import *
+from .exceptionsAPI import *
 import os
 
 from datetime import datetime
