@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 
 setuptools.setup(
-    name="SciExpeMAPI",
+    name="SciExpeM_API",
     version="1.0.0",
     author="Edoardo Ramalli",
     author_email="edoardo.ramalli@polimi.it",
