@@ -1,18 +1,41 @@
 import pandas as pd
-from . import Experiment, ExecutionColumn
+import SciExpeM_API.Utility.Tools as TL
+from SciExpeM_API import settings
+import json
 
 
 class Execution:
 
-    def __init__(self, chemModel, experiment, execution_columns, execution_start=None, execution_end=None, id=None):
-        self.id = id
-        self.chemModel = chemModel
-        self.Experiment = Experiment(**dict(experiment))
-        self.execution_start = execution_start
-        self.execution_end = execution_end
-        self.ExecutionColumn = [ExecutionColumn.ExecutionColumn.from_dict(data) for data in execution_columns]
-        self.execution_columns_df, self.execution_columns_units = self.execution_columns_df(self.ExecutionColumn)
+    def __init__(self, chemModel=None, experiment=None, execution_columns=None, id=None):
+        self._id = id
+        self._chemModel = TL.optimize(settings.DB, 'ChemModel', json.dumps([chemModel]))[0]
+        self._Experiment = TL.optimize(settings.DB, 'Experiment', json.dumps([experiment]))[0]
+        self._ExecutionColumn = TL.optimize(settings.DB, 'ExecutionColumn', json.dumps(execution_columns))
+        # self._execution_columns_df, self.execution_columns_units = self.execution_columns_df(self.ExecutionColumn)
         # self.execution_columns_df = self.execution_columns_df(self.ExecutionColumn)
+
+        self._execution_start = None
+        self._execution_end = None
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def execution_start(self):
+        if not self._execution_start:
+            self._execution_start = TL.getProperty(self.__class__.__name__, self.id, 'execution_start')
+            return self._execution_start
+        else:
+            return self._execution_start
+
+    @property
+    def execution_end(self):
+        if not self._execution_end:
+            self._execution_end = TL.getProperty(self.__class__.__name__, self.id, 'execution_end')
+            return self._execution_end
+        else:
+            return self._execution_end
 
     @classmethod
     def from_dict(cls, data_dict):

@@ -1,11 +1,41 @@
+import SciExpeM_API.Utility.Tools as TL
+
+
 class ChemModel:
 
-    def __init__(self, name, xml_file_kinetics, xml_file_reaction_names, id=None, version=None):
-        self.id = id
-        self.name = name
-        self.xml_file_kinetics = xml_file_kinetics
-        self.xml_file_reaction_names = xml_file_reaction_names
-        self.version = version
+    def __init__(self, id=None):
+        self._id = id
+        self._name = None
+        self._xml_file_kinetics = None
+        self._xml_file_reaction_names = None
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def xml_file_reaction_names(self):
+        if not self._xml_file_reaction_names:
+            self._xml_file_reaction_names = TL.getProperty(self.__class__.__name__, self.id, 'xml_file_reaction_names')
+            return self._xml_file_reaction_names
+        else:
+            return self._xml_file_reaction_names
+
+    @property
+    def xml_file_kinetics(self):
+        if not self._xml_file_kinetics:
+            self._xml_file_kinetics = TL.getProperty(self.__class__.__name__, self.id, 'xml_file_kinetics')
+            return self._xml_file_kinetics
+        else:
+            return self._xml_file_kinetics
+
+    @property
+    def name(self):
+        if not self._name:
+            self._name = TL.getProperty(self.__class__.__name__, self.id, 'name')
+            return self._name
+        else:
+            return self._name
 
     @classmethod
     def from_dict(cls, data_dict):

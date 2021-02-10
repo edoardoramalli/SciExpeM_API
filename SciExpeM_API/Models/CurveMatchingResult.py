@@ -1,13 +1,33 @@
-from . import ExecutionColumn
+import SciExpeM_API.Utility.Tools as TL
 
 
 class CurveMatchingResult:
 
-    def __init__(self, index, error, id=None):
-        self.id = id
+    def __init__(self, id=None):
+        self._id = id
         # self.execution_column = ExecutionColumn(**dict(execution_column))
-        self.index = index
-        self.error = error
+        self._index = None
+        self._error = None
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def index(self):
+        if not self._index:
+            self._index = TL.getProperty(self.__class__.__name__, self.id, 'index')
+            return self._index
+        else:
+            return self._index
+
+    @property
+    def error(self):
+        if not self._error:
+            self._error = TL.getProperty(self.__class__.__name__, self.id, 'error')
+            return self._error
+        else:
+            return self._error
 
     @classmethod
     def from_dict(cls, data_dict):

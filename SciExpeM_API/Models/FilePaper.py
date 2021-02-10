@@ -1,8 +1,31 @@
+import SciExpeM_API.Utility.Tools as TL
+
+
 class FilePaper:
-    def __init__(self, title, reference_doi=None, id=None):
-        self.id = id
-        self.title = title
-        self.reference_doi = reference_doi
+    def __init__(self, title=None, reference_doi=None, id=None):
+        self._id = id
+        self._title = title
+        self._reference_doi = reference_doi
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def title(self):
+        if not self._title:
+            self._title = TL.getProperty('FilePaper', self.id, 'title')
+            return self._title
+        else:
+            return self._title
+
+    @property
+    def reference_doi(self):
+        if not self._reference_doi:
+            self._reference_doi = TL.getProperty('FilePaper', self.id, 'reference_doi')
+            return self._reference_doi
+        else:
+            return self._reference_doi
 
     @classmethod
     def from_dict(cls, data_dict):

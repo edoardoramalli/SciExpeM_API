@@ -1,36 +1,14 @@
 import requests
 from enum import Enum
+from .QSerializer import QSerializer
+from django.db.models import Q
+import json
+# from Models import *
+# import SciExpeM_API.Models as Models
+from .Utility.RequestAPI import HTTP_TYPE, RequestAPI
+from .Utility.Tools import optimize
+from SciExpeM_API import settings
 
-class HTTP_TYPE(Enum):
-    GET = 0
-    POST = 1
-
-
-class RequestAPI:
-    def __init__(self, ip: str, port: int, address: str, params: dict, token: str, mode: HTTP_TYPE, secure: bool):
-        self.ip = ip
-        self.port = port
-        self.params = params
-        self.token = token
-        self.mode = mode
-        self.headers = {"Authorization": "Token " + token}
-        if secure:
-            init = "https://"
-        else:
-            init = "http://"
-        url = init + ip + ":" + str(port) + "/" + address
-
-        if mode == HTTP_TYPE.GET:
-            self.requests = requests.get(url, headers=self.headers, params=self.params)
-        elif mode == HTTP_TYPE.POST:
-            self.requests = requests.post(url, headers=self.headers, data=self.params)
-
-        self.transfer_attribute()
-
-    def transfer_attribute(self):
-        list_attribute = [x for x in dir(self.requests) if "__" not in x]
-        for attribute in list_attribute:
-            setattr(self, attribute, getattr(self.requests, attribute))
 
 class SciExpeM:
 
@@ -39,6 +17,12 @@ class SciExpeM:
         self.port = port
         self.token = token
         self.secure = secure
+
+        settings.IP = self.ip
+        settings.PORT = self.port
+        settings.TOKEN = self.token
+        settings.SECURE = self.secure
+        settings.DB = self
 
         self.Experiment = {}
         self.ChemModel = {}
@@ -50,9 +34,12 @@ class SciExpeM:
         self.FilePaper = {}
         self.InitialSpecie = {}
 
-    def filter(self, model_name, *args, **kwargs):
+    def filter(self, model_name: str, verbose=False, query=None, *args, **kwargs) -> list:
+        q_serializer = QSerializer()
 
-        params = {'model': 'Experiment', 'query': 'cerca'}
+        q = q_serializer.dumps(query) if query else q_serializer.dumps(Q(*args, **kwargs))
+
+        params = {'model': model_name, 'query': q}
 
         address = 'ExperimentManager/API/filterDataBase'
 
@@ -64,14 +51,13 @@ class SciExpeM:
                              secure=self.secure,
                              params=params)
 
-        print(request.requests.status_code, request.requests.text)
+        if request.requests.status_code != 200:
+            return []
+        else:
+            if verbose:
+                print("Filter Request Successful.")
+            return optimize(self, model_name, request.requests.text)
 
 
-a = SciExpeM(ip='127.0.0.1',
-              port=8080,
-              secure=False,
-              token='f8fa855a5ff8ac3653528a989afdb6ea1d5096eb')
 
 
-
-a.filter(12)
