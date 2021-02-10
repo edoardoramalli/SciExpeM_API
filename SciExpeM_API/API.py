@@ -35,14 +35,14 @@ class HTTP_TYPE(Enum):
 
 
 class RequestAPI:
-    def __init__(self, ip: str, port: int, address: str, params: dict, token: str, mode: HTTP_TYPE):
+    def __init__(self, ip: str, port: int, address: str, params: dict, token: str, mode: HTTP_TYPE, secure: bool):
         self.ip = ip
         self.port = port
         self.params = params
         self.token = token
         self.mode = mode
         self.headers = {"Authorization": "Token " + token}
-        if HTTPS:
+        if secure:
             init = "https://"
         else:
             init = "http://"
