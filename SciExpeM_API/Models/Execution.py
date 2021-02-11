@@ -9,8 +9,11 @@ class Execution:
     def __init__(self, chemModel=None, experiment=None, execution_columns=None, id=None):
         self._id = id
         self._chemModel = TL.optimize(settings.DB, 'ChemModel', json.dumps([chemModel]))[0]
-        self._Experiment = TL.optimize(settings.DB, 'Experiment', json.dumps([experiment]))[0]
-        self._ExecutionColumn = TL.optimize(settings.DB, 'ExecutionColumn', json.dumps(execution_columns))
+        self._experiment = TL.optimize(settings.DB, 'Experiment', json.dumps([experiment]))[0]
+        self._execution_columns = TL.optimize(settings.DB, 'ExecutionColumn', json.dumps(execution_columns))
+        for exec_col in self._execution_columns:
+            exec_col.set_execution(self)
+
         # self._execution_columns_df, self.execution_columns_units = self.execution_columns_df(self.ExecutionColumn)
         # self.execution_columns_df = self.execution_columns_df(self.ExecutionColumn)
 
@@ -20,6 +23,18 @@ class Execution:
     @property
     def id(self):
         return self._id
+
+    @property
+    def chemModel(self):
+        return self._chemModel
+
+    @property
+    def experiment(self):
+        return self._experiment
+
+    @property
+    def execution_columns(self):
+        return self._execution_columns
 
     @property
     def execution_start(self):

@@ -1,26 +1,29 @@
 import SciExpeM_API.Utility.Tools as TL
+from SciExpeM_API import settings
+import json
 
 
 class ExecutionColumn:
     def __init__(self, id=None):
-        self._id = None
+        self._id = id
         self._data = None
         self._species = None
         self._file_type = None
         self._name = None
         self._label = None
         self._units = None
+        self._execution = None
 
-        # if type(execution) is int:
-        #     self.execution = execution
-        # elif type(execution) is dict:
-        #     self.execution = Execution(**dict(execution))
-
-
+    def set_execution(self, execution):
+        self._execution = execution
 
     @property
     def id(self):
         return self._id
+
+    @property
+    def execution(self):
+        return self._execution
 
     @property
     def data(self):

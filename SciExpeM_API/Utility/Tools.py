@@ -20,9 +20,11 @@ def getProperty(model_name, element_id, property_name):
 
 
 def optimize(database, model_name, text):
+    # print(model_name, text)
     model = eval(model_name)
     tmp = [model.from_dict(element) for element in json.loads(text)]
     result = []
+
     for element in tmp:
         attribute = getattr(database, model_name)
         if element.id in attribute:

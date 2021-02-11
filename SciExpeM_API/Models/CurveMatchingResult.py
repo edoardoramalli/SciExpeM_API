@@ -1,33 +1,34 @@
 import SciExpeM_API.Utility.Tools as TL
+from SciExpeM_API import settings
+import json
 
 
 class CurveMatchingResult:
 
-    def __init__(self, id=None):
+    def __init__(self, id=None, index=None, error=None, execution_column=None):
         self._id = id
-        # self.execution_column = ExecutionColumn(**dict(execution_column))
-        self._index = None
-        self._error = None
+        execution = execution_column['execution']
+        del execution_column['execution']
+        self._execution_column = TL.optimize(settings.DB, 'ExecutionColumn', json.dumps([execution_column]))[0]
+        self._execution_column.set_execution(TL.optimize(settings.DB, 'Execution', json.dumps([execution]))[0])
+        self._index = index
+        self._error = error
 
     @property
     def id(self):
         return self._id
 
     @property
+    def execution_column(self):
+        return self._execution_column
+
+    @property
     def index(self):
-        if not self._index:
-            self._index = TL.getProperty(self.__class__.__name__, self.id, 'index')
-            return self._index
-        else:
-            return self._index
+        return self._index
 
     @property
     def error(self):
-        if not self._error:
-            self._error = TL.getProperty(self.__class__.__name__, self.id, 'error')
-            return self._error
-        else:
-            return self._error
+        return self._error
 
     @classmethod
     def from_dict(cls, data_dict):

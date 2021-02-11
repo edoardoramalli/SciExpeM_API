@@ -54,4 +54,4 @@ class ChemModel:
         return diz
 
     def __repr__(self):
-        return f'<ChemModel ({self.id}) {self.name}>'
+        return f'<ChemModel ({self.id})>'

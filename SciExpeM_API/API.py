@@ -96,62 +96,6 @@ def getUserInfo(username, password):
 
 
 
-# START FILTER
-
-
-def schemaFilter(address, model, *args, **kwargs):
-    q_serializer = QSerializer()
-    result = []
-    try:
-        request = RequestAPI(ip=IP,
-                             port=PORT,
-                             params={"query": q_serializer.dumps(Q(*args, **kwargs))},
-                             address=address,
-                             token=TOKEN,
-                             mode=HTTP_TYPE.GET)
-
-        response = check_status_code(request)
-
-        if response['result']:
-            for r in response['result']:
-                element = model.from_dict(r)
-                result.append(element)
-
-        return result
-
-    except (RequestException, ConnectionRefusedError, ConnectionError):
-        raise API_CONNECTION_EXCEPTION
-
-
-def filterExperiment(*args, **kwargs):
-    return schemaFilter("ExperimentManager/API/filterExperiment",
-                        Experiment,
-                        *args,
-                        **kwargs)
-
-
-def filterChemModel(*args, **kwargs):
-    return schemaFilter("ExperimentManager/API/filterChemModel",
-                        ChemModel,
-                        *args,
-                        **kwargs)
-
-
-def filterExecution(*args, **kwargs):
-    return schemaFilter("ExperimentManager/API/filterExecution",
-                        Execution,
-                        *args,
-                        **kwargs)
-
-
-def filterCurveMatchingResult(*args, **kwargs):
-    return schemaFilter("ExperimentManager/API/filterCurveMatchingResult",
-                        CurveMatchingResult,
-                        *args,
-                        **kwargs)
-
-
-# END FILTER
 
 
 # START INSERT
@@ -212,36 +156,6 @@ def insertExecution(execution, verbose=False):
                         verbose=verbose)
 
 
-def loadXMLExperiment(path, verbose=False):
-    if not os.path.isfile(path):
-        raise FileNotFoundError(path)
-
-    object_serialized = json.dumps({"file": open(path, 'r').read()})
-
-    dimension = round(sys.getsizeof(object_serialized) / 1000.0, 3)
-    if verbose:
-        print("Send Insert Request Experiment XML %f KB" % dimension)
-
-    try:
-        request = RequestAPI(ip=IP,
-                             port=PORT,
-                             params={"query": object_serialized},
-                             address="ExperimentManager/API/loadXMLExperiment",
-                             token=TOKEN,
-                             mode=HTTP_TYPE.POST)
-
-        response = check_status_code(request)
-
-        if response['result']:
-            if response['result'] == "OK":
-                if verbose:
-                    print("Insert Succeeded!")
-            elif response['result'] == "DUPLICATE":
-                if verbose:
-                    print("Insert Failed! Duplicate Element")
-
-    except (RequestException, ConnectionRefusedError, ConnectionError):
-        raise API_CONNECTION_EXCEPTION
 
 # -->No sense of this function
 # def insertCurveMatchingResult(curveMatchingResult, verbose=False):
@@ -322,7 +236,6 @@ def startSimulation(experiment, chemModel, verbose=False):
 
 # START Verify Experiment
 
-
 def verifyExperiment(experiment, status, verbose=False):
     exp_id = experiment.id
 
@@ -333,20 +246,6 @@ def verifyExperiment(experiment, status, verbose=False):
     basic_request(address, params, verbose)
 
 # END Verify Experiment
-
-
-# START UPDATE
-
-def insertOSFile(experiment, osFile, verbose=False):
-    exp_id = experiment.id
-
-    address = "ExperimentManager/API/insertOSFileAPI/"
-
-    params = {'experiment': exp_id, 'osFile': osFile}
-
-    basic_request(address, params, verbose)
-
-# END UPDATE
 
 
 # START ANALYZE
