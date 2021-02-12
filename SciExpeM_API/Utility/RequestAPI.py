@@ -35,7 +35,7 @@ class RequestAPI:
             print("HTTP ERROR {} -> {}".format(self.status_code, json.loads(self.requests.text)), file=sys.stderr)
         except (requests.exceptions.Timeout, requests.exceptions.TooManyRedirects, requests.exceptions.RequestException):
             self.status_code = 0
-            print('CONNECTION ERROR. Try later.')
+            print('CONNECTION ERROR. Try later.', file=sys.stderr)
 
     #     self.transfer_attribute()
     #

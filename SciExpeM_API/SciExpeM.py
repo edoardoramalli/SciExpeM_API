@@ -93,7 +93,7 @@ class SciExpeM:
                              secure=self.secure,
                              params=params)
 
-        if request.requests.status_code != 200:
+        if request.status_code != 200:
             return []
         else:
             if verbose:
@@ -211,6 +211,26 @@ class SciExpeM:
         params = {'model_name': name, 'id': identifier}
 
         address = 'ExperimentManager/API/deleteElement'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print(json.loads(request.requests.text))
+
+    def startSimulation(self, experiment, chemModel, verbose=False):
+        experiment_id = experiment if type(experiment) == int else experiment.id
+        chemModel_id = chemModel if type(chemModel) == int else chemModel.id
+
+        params = {'experiment': experiment_id, 'chemModel': chemModel_id}
+
+        address = 'OpenSmoke/API/startSimulation'
 
         request = RequestAPI(ip=self.ip,
                              port=self.port,
