@@ -45,11 +45,3 @@ class CurveMatchingResult:
     def __repr__(self):
         return f'<CurveMatchingResult ({self.id})>'
 
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz

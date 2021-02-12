@@ -40,4 +40,10 @@ def optimize(database, model_name, text, refresh=False):
     return result
 
 
-# def create
+def serialize(obj, exclude):
+    if exclude is None:
+        exclude = []
+    diz = {key.replace('_', '', 1) if key.startswith('_') else key: value for key, value in dict(obj.__dict__).items()}
+    for e in exclude:
+        diz.pop(e, None)
+    return diz

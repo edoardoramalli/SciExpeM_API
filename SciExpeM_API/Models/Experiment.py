@@ -237,15 +237,5 @@ class Experiment:
         self._p_sup = None
         self._experiment_classifier = None
 
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        diz.pop("data_columns_df", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz
-
     def __repr__(self):
         return f'<Experiment ({self.id})>'

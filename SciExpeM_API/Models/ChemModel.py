@@ -3,15 +3,25 @@ import SciExpeM_API.Utility.Tools as TL
 
 class ChemModel:
 
-    def __init__(self, id=None):
+    def __init__(self, id=None, name=None, xml_file_kinetics=None, xml_file_reaction_names=None, version=None):
         self._id = id
-        self._name = None
-        self._xml_file_kinetics = None
-        self._xml_file_reaction_names = None
+        self._name = name
+        self._xml_file_kinetics = xml_file_kinetics
+        self._xml_file_reaction_names = xml_file_reaction_names
+        self._version = version
 
     @property
     def id(self):
         return self._id
+
+    @property
+    def version(self):
+        if not self._version:
+            self._version = TL.getProperty(self.__class__.__name__, self.id, 'version')
+            return self._version
+        else:
+            return self._version
+
 
     @property
     def xml_file_reaction_names(self):
@@ -49,14 +59,8 @@ class ChemModel:
         self._xml_file_kinetics = None
         self._xml_file_reaction_names = None
 
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz
+    def serialize(self):
+        return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<ChemModel ({self.id})>'

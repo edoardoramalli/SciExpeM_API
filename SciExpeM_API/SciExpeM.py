@@ -15,7 +15,7 @@ class SciExpeM:
     @staticmethod
     def initialize(ip: str, port: int, token: str, secure: bool):
         if SciExpeM.__instance is None:
-            SciExpeM(ip, port, token, secure)
+            SciExpeM(ip=ip, port=port, token=token, secure=secure)
         return SciExpeM.__instance
 
     def __init__(self, ip: str, port: int, secure: bool,
@@ -117,11 +117,14 @@ class SciExpeM:
             if verbose:
                 print(request.requests.text)
 
-    def updateElement(self, model_name: str, element, verbose=False, **kwargs):
+    def updateElement(self, element, model_name: str = None, verbose=False, **kwargs):
+        if type(element) == int and not model_name:
+            raise Exception("Modal name is not specified.")
 
         identifier = element if type(element) == int else element.id
+        name = model_name if type(element) == int else element.__class__.__name__
 
-        params = {'model_name': model_name, 'property': json.dumps(kwargs), 'id': identifier}
+        params = {'model_name': name, 'property': json.dumps(kwargs), 'id': identifier}
 
         address = 'ExperimentManager/API/updateElement'
 
@@ -135,7 +138,7 @@ class SciExpeM:
 
         if request.requests.status_code == 200:
             if verbose:
-                print("Update Element Parameter Successful.")
+                print(request.requests.text)
 
     def convertList(self, data_list: list, unit: str, desired_unit: str, verbose: bool = False) -> list:
 
@@ -175,4 +178,22 @@ class SciExpeM:
 
         if request.requests.status_code == 200:
             if verbose:
-                print("Experiment Verified Successfully.")
+                print(request.requests.text)
+
+    def insertElement(self, obj, verbose=False):
+
+        params = {'model_name': obj.__class__.__name__, 'property': json.dumps(obj.serialize())}
+
+        address = 'ExperimentManager/API/insertElement'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print("Element Inserted Successfully.")

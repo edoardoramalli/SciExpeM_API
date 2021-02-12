@@ -82,13 +82,3 @@ class Execution:
             units[column.file_type][column.label] = column.units
 
         return results, units
-
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        diz.pop("execution_columns_df", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz

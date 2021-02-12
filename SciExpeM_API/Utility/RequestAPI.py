@@ -1,5 +1,7 @@
 from enum import Enum
 import requests
+import json
+import sys
 
 
 class HTTP_TYPE(Enum):
@@ -30,7 +32,7 @@ class RequestAPI:
             self.status_code = self.requests.status_code
             self.requests.raise_for_status()
         except requests.exceptions.HTTPError:
-            print("HTTP ERROR {}: {}.".format(self.status_code, self.requests.text))
+            print("HTTP ERROR {} -> {}".format(self.status_code, json.loads(self.requests.text)), file=sys.stderr)
         except (requests.exceptions.Timeout, requests.exceptions.TooManyRedirects, requests.exceptions.RequestException):
             self.status_code = 0
             print('CONNECTION ERROR. Try later.')

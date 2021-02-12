@@ -38,14 +38,5 @@ class FilePaper:
         self._title = None
         self._reference_doi = None
 
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz
-
     def __repr__(self):
         return f'<FilePaper ({self.id})>'

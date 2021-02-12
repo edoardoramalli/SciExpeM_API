@@ -56,8 +56,6 @@ def schemaInsert(address, obj, mapping=None, verbose=False):
         raise API_CONNECTION_EXCEPTION
 
 
-def insertChemModel(chemModel, verbose=False):
-    return schemaInsert(address="ExperimentManager/API/insertChemModel", obj=chemModel, verbose=verbose)
 
 
 def insertExperiment(experiment, verbose=False):
@@ -165,13 +163,3 @@ def analyzeExecution(execution, verbose=False):
     basic_request(address, params, verbose)
 
 # END ANALYZE
-
-
-def prova(verbose=True):
-    # exp_id = experiment.id
-
-    address = "CurveMatching/API/executeCurveMatchingBase"
-
-    # params = {'execution': 1, 'file': open("ParametricAnalysisIDT.out").read(), 'file_type': 'IDT'}
-    params ={}
-    basic_request(address, params, verbose)

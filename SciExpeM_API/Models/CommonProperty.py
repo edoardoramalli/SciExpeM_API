@@ -50,15 +50,5 @@ class CommonProperty:
         self._units = None
         self._value = None
 
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        diz.pop("experiment", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz
-
     def __repr__(self):
         return f'<CommonProperty ({self.id})>'

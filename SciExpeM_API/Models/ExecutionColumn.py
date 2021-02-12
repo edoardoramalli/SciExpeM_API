@@ -92,13 +92,3 @@ class ExecutionColumn:
 
     def __repr__(self):
         return f'<ExecutionColumn ({self.id})>'
-
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        diz.pop("execution", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz
