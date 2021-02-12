@@ -6,11 +6,11 @@ import json
 
 class Execution:
 
-    def __init__(self, chemModel=None, experiment=None, execution_columns=None, id=None):
+    def __init__(self, chemModel=None, experiment=None, execution_columns=None, id=None, refresh=False):
         self._id = id
-        self._chemModel = TL.optimize(settings.DB, 'ChemModel', json.dumps([chemModel]))[0]
-        self._experiment = TL.optimize(settings.DB, 'Experiment', json.dumps([experiment]))[0]
-        self._execution_columns = TL.optimize(settings.DB, 'ExecutionColumn', json.dumps(execution_columns))
+        self._chemModel = TL.optimize(settings.DB, 'ChemModel', json.dumps([chemModel]), refresh=refresh)[0]
+        self._experiment = TL.optimize(settings.DB, 'Experiment', json.dumps([experiment]), refresh=refresh)[0]
+        self._execution_columns = TL.optimize(settings.DB, 'ExecutionColumn', json.dumps(execution_columns), refresh=refresh)
         for exec_col in self._execution_columns:
             exec_col.set_execution(self)
 
@@ -58,6 +58,10 @@ class Execution:
             return data_dict
         else:
             return cls(**data_dict)
+
+    def refresh(self):
+        self._execution_start = None
+        self._execution_end = None
 
     def __repr__(self):
         return f'<Execution ({self.id})>'

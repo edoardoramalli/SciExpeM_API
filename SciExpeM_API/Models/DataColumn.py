@@ -93,8 +93,16 @@ class DataColumn:
         else:
             return self._units
 
-
-
+    def refresh(self):
+        self._name = None
+        self._units = None
+        self._data = None
+        self._dg_id = None
+        self._label = None
+        self._species = None
+        self._plotscale = None
+        self._ignore = None
+        self._nominal = None
 
 
     @classmethod

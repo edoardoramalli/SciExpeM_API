@@ -13,88 +13,6 @@ import os
 from datetime import datetime
 
 
-def check_status_code(request):
-    status_code = int(request.requests.status_code)
-    if status_code >= 500:
-        raise HTTP_SERVER_EXCEPTION(status_code)
-    elif 400 <= status_code <= 499:
-        raise HTTP_CLIENT_EXCEPTION(status_code)
-    elif 300 <= status_code <= 399:
-        raise HTTP_REDIRECTION_EXCEPTION(status_code)
-    elif status_code <= 299:
-        response = json.loads(request.text)
-        if response['error']:
-            raise API_PROCESSING_EXCEPTION(response['error'])
-        else:
-            return response
-
-
-class HTTP_TYPE(Enum):
-    GET = 0
-    POST = 1
-
-
-class RequestAPI:
-    def __init__(self, ip: str, port: int, address: str, params: dict, token: str, mode: HTTP_TYPE, secure: bool):
-        self.ip = ip
-        self.port = port
-        self.params = params
-        self.token = token
-        self.mode = mode
-        self.headers = {"Authorization": "Token " + token}
-        if secure:
-            init = "https://"
-        else:
-            init = "http://"
-        url = init + ip + ":" + str(port) + "/" + address
-
-        if mode == HTTP_TYPE.GET:
-            self.requests = requests.get(url, headers=self.headers, params=self.params)
-        elif mode == HTTP_TYPE.POST:
-            self.requests = requests.post(url, headers=self.headers, data=self.params)
-
-        self.transfer_attribute()
-
-    def transfer_attribute(self):
-        list_attribute = [x for x in dir(self.requests) if "__" not in x]
-        for attribute in list_attribute:
-            setattr(self, attribute, getattr(self.requests, attribute))
-
-
-def getUserInfo(username, password):
-    if HTTPS:
-        init = "https://"
-    else:
-        init = "http://"
-
-    address = "getInfoUser"
-
-    params = {'username': username, 'password': password}
-
-    url = init + IP + ":" + str(PORT) + "/" + address
-
-    request = requests.post(url, data=params)
-
-    status_code = int(request.status_code)
-    if status_code >= 500:
-        raise HTTP_SERVER_EXCEPTION(status_code)
-    elif 400 <= status_code <= 499:
-        raise HTTP_CLIENT_EXCEPTION(status_code)
-    elif 300 <= status_code <= 399:
-        raise HTTP_REDIRECTION_EXCEPTION(status_code)
-    elif status_code <= 299:
-        response = json.loads(request.text)
-        # token = response.get('token')
-        # username = response.get('username')
-        # user_id = response.get('user_id')
-        # first_name = response.get('first_name')
-        # last_name = response.get('last_name')
-        # email = response.get('email')
-        # groups = response.get('groups')
-        # permissions = response.get('permissions')
-        return response
-
-
 
 
 
@@ -233,19 +151,6 @@ def startSimulation(experiment, chemModel, verbose=False):
 
 
 # END SIMULATION
-
-# START Verify Experiment
-
-def verifyExperiment(experiment, status, verbose=False):
-    exp_id = experiment.id
-
-    address = "ExperimentManager/API/verifyExperiment/"
-
-    params = {'experiment': exp_id, 'status': status}
-
-    basic_request(address, params, verbose)
-
-# END Verify Experiment
 
 
 # START ANALYZE

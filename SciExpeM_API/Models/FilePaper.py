@@ -2,10 +2,10 @@ import SciExpeM_API.Utility.Tools as TL
 
 
 class FilePaper:
-    def __init__(self, title=None, reference_doi=None, id=None):
+    def __init__(self, id=None):
         self._id = id
-        self._title = title
-        self._reference_doi = reference_doi
+        self._title = None
+        self._reference_doi = None
 
     @property
     def id(self):
@@ -33,6 +33,10 @@ class FilePaper:
             return data_dict
         else:
             return cls(**data_dict)
+
+    def refresh(self):
+        self._title = None
+        self._reference_doi = None
 
     def serialize(self, exclude=None):
         if exclude is None:

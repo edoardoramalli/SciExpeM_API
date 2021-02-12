@@ -73,6 +73,15 @@ class ExecutionColumn:
         else:
             return self._units
 
+    def refresh(self):
+        self._data = None
+        self._species = None
+        self._file_type = None
+        self._name = None
+        self._label = None
+        self._units = None
+        self._execution = None
+
 
     @classmethod
     def from_dict(cls, data_dict):

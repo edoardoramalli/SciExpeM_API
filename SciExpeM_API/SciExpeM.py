@@ -1,30 +1,49 @@
-import requests
-from enum import Enum
 from .QSerializer import QSerializer
 from django.db.models import Q
 import json
-# from Models import *
-# import SciExpeM_API.Models as Models
 from .Utility.RequestAPI import HTTP_TYPE, RequestAPI
 from .Utility.Tools import optimize
+from .Utility.User import User
 from SciExpeM_API import settings
 
 import os
 
 
 class SciExpeM:
+    __instance = None
 
-    def __init__(self, ip, port, token, secure):
+    @staticmethod
+    def initialize(ip: str, port: int, token: str, secure: bool):
+        if SciExpeM.__instance is None:
+            SciExpeM(ip, port, token, secure)
+        return SciExpeM.__instance
+
+    def __init__(self, ip: str, port: int, secure: bool,
+                 token: str = None, username: str = None, password: str = None):
+        if SciExpeM.__instance is not None:
+            raise Exception("SciExpeM is a singleton.")
+        else:
+            SciExpeM.__instance = self
         self.ip = ip
         self.port = port
-        self.token = token
         self.secure = secure
+
+        if not (username and password) and not token:
+            raise Exception("Missing username and password or access token.")
+        elif token:
+            self.token = token
+        elif username and password:
+            try:
+                self.user = self.getUserInfo(username, password)
+            except Exception:
+                raise Exception("Authentication failed.")
+            self.token = self.user.token
 
         settings.IP = self.ip
         settings.PORT = self.port
-        settings.TOKEN = self.token
         settings.SECURE = self.secure
         settings.DB = self
+        settings.TOKEN = self.token
 
         self.Experiment = {}
         self.ChemModel = {}
@@ -36,7 +55,25 @@ class SciExpeM:
         self.FilePaper = {}
         self.InitialSpecie = {}
 
-    def filterDatabase(self, model_name: str, verbose=False, query=None, *args, **kwargs) -> list:
+    def getUserInfo(self, username: str, password: str):
+
+        params = {'username': username, 'password': password}
+
+        address = 'getInfoUser'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code != 200:
+            raise Exception()
+        else:
+            return User(**dict(json.loads(request.requests.text)))
+
+    def filterDatabase(self, model_name: str, verbose=False, query=None, refresh=False, *args, **kwargs) -> list:
         q_serializer = QSerializer()
 
         q = q_serializer.dumps(query) if query else q_serializer.dumps(Q(*args, **kwargs))
@@ -58,7 +95,7 @@ class SciExpeM:
         else:
             if verbose:
                 print("Filter Request Successful.")
-            return optimize(self, model_name, request.requests.text)
+            return optimize(self, model_name, request.requests.text, refresh)
 
     def loadExperiment(self, path, format_file, verbose=False):
         if not os.path.isfile(path):
@@ -120,6 +157,22 @@ class SciExpeM:
 
         return json.loads(request.requests.text)
 
+    def verifyExperiment(self, experiment, status: str, verbose=False):
 
+        identifier = experiment if type(experiment) == int else experiment.id
 
+        params = {'status': status, 'id': identifier}
 
+        address = 'ExperimentManager/API/verifyExperiment'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print("Experiment Verified Successfully.")

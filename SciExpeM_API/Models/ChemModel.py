@@ -44,6 +44,11 @@ class ChemModel:
         else:
             return cls(**data_dict)
 
+    def refresh(self):
+        self._name = None
+        self._xml_file_kinetics = None
+        self._xml_file_reaction_names = None
+
     def serialize(self, exclude=None):
         if exclude is None:
             exclude = []

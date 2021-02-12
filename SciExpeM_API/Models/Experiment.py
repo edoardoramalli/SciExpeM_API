@@ -28,15 +28,15 @@ class Experiment:
     #     self.InitialSpecie = [InitialSpecie.from_dict(data) for data in initial_species]
     #     self.CommonProperty = [CommonProperty.from_dict(data) for data in common_properties]
 
-
-    def __init__(self, id=None, data_columns=None, file_paper=None, initial_species=None, common_properties=None):
+    def __init__(self, id=None, data_columns=None, file_paper=None,
+                 initial_species=None, common_properties=None, refresh=False):
         self._id = id
 
         # Object
-        self._data_columns = TL.optimize(settings.DB, 'DataColumn', json.dumps(data_columns))
-        self._initial_species = TL.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species))
-        self._common_properties = TL.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties))
-        self._file_paper = TL.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]))[0]
+        self._data_columns = TL.optimize(settings.DB, 'DataColumn', json.dumps(data_columns), refresh=refresh)
+        self._initial_species = TL.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species), refresh=refresh)
+        self._common_properties = TL.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
+        self._file_paper = TL.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]), refresh=refresh)[0]
 
         # Simple
         self._experiment_type = None
@@ -196,8 +196,6 @@ class Experiment:
     def data_columns(self):
         return self._data_columns
 
-
-
     def data_columns_df(self, data_columns_list):
         data_columns_group_ids = set([])
         for column in data_columns_list:
@@ -221,6 +219,23 @@ class Experiment:
             return data_dict
         else:
             return cls(**data_dict)
+
+    def refresh(self):
+        self._experiment_type = None
+        self._xml_file = None
+        self._reactor = None
+        self._fileDOI = None
+        self._status = None
+        self._ignition_type = None
+        self._os_input_file = None
+        self._fuels = None
+        self._phi_inf = None
+        self._phi_sup = None
+        self._t_inf = None
+        self._t_sup = None
+        self._p_inf = None
+        self._p_sup = None
+        self._experiment_classifier = None
 
     def serialize(self, exclude=None):
         if exclude is None:

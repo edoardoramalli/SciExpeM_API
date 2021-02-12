@@ -19,9 +19,12 @@ def getProperty(model_name, element_id, property_name):
     return json.loads(request.requests.text) if json.loads(request.requests.text) != '' else None
 
 
-def optimize(database, model_name, text):
+def optimize(database, model_name, text, refresh=False):
     # print(model_name, text)
     model = eval(model_name)
+    refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment']
+    if model in refresh_models:
+        text['refresh'] = refresh
     tmp = [model.from_dict(element) for element in json.loads(text)]
     result = []
 
@@ -29,6 +32,8 @@ def optimize(database, model_name, text):
         attribute = getattr(database, model_name)
         if element.id in attribute:
             result.append(attribute[element.id])
+            if refresh:
+                attribute[element.id].refresh()
         else:
             attribute[element.id] = element
             result.append(element)

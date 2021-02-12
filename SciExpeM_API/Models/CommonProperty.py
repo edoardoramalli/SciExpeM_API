@@ -45,6 +45,11 @@ class CommonProperty:
         else:
             return cls(**data_dict)
 
+    def refresh(self):
+        self._name = None
+        self._units = None
+        self._value = None
+
     def serialize(self, exclude=None):
         if exclude is None:
             exclude = []
