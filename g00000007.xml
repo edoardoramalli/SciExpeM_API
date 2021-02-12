@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<experiment>
+    <fileAuthor>Chemical Kinetics Laboratory, Institute of Chemistry, ELTE, Budapest, Hungary</fileAuthor>
+    <fileDOI>10.24388/g00000u0079</fileDOI>
+    <fileVersion>
+        <major>1</major>
+        <minor>1</minor>
+    </fileVersion>
+    <ReSpecThVersion>
+        <major>2</major>
+        <minor>0</minor>
+    </ReSpecThVersion>
+    <experimentType>ignition delay measuremennt</experimentType>
+    <bibliographyLink>
+        <description>Pang, G.A., Davison, D.F., Hanson, R.K., Proceedings of the Combustion Institute, 2009, (32), 181-188, Fig. 3., full square</description>
+        <referenceDOI>TO DO</referenceDOI>
+        <location>TO DO</location>
+        <table>TO DO</table>
+        <figure>TO DO</figure>
+    </bibliographyLink>
+    <apparatus>
+        <kind>shock tube</kind>
+    </apparatus>
+    <commonProperties>
+        <property name="initial composition">
+            <component>
+                <speciesLink preferredKey="H2"/>
+                <amount units="mole fraction">0.04</amount>
+            </component>
+            <component>
+                <speciesLink preferredKey="O2"/>
+                <amount units="mole fraction">0.02</amount>
+            </component>
+            <component>
+                <speciesLink preferredKey="Ar"/>
+                <amount units="mole fraction">0.94</amount>
+            </component>
+        </property>
+    </commonProperties>
+    <dataGroup id="dg1">
+        <property description="" id="x1" label="T" plotaxis="x" plotscale="inv" name="temperature" units="K"/>
+        <property description="" id="x2" label="P" name="pressure" units="atm"/>
+        <property description="" id="x3" label="tau" plotaxis="y" plotscale="log" name="ignition delay" units="us"/>
+        <dataPoint>
+            <x1>924</x1>
+            <x2>3.42</x2>
+            <x3>10050</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>930</x1>
+            <x2>3.586</x2>
+            <x3>7912</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>930</x1>
+            <x2>3.534</x2>
+            <x3>13090</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>930</x1>
+            <x2>3.635</x2>
+            <x3>10420</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>931</x1>
+            <x2>3.622</x2>
+            <x3>7851</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>938</x1>
+            <x2>3.651</x2>
+            <x3>7723</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>938</x1>
+            <x2>3.535</x2>
+            <x3>6973</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>938</x1>
+            <x2>3.52</x2>
+            <x3>6133</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>939</x1>
+            <x2>3.622</x2>
+            <x3>6803</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>939</x1>
+            <x2>3.598</x2>
+            <x3>7274</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>944</x1>
+            <x2>3.651</x2>
+            <x3>5627</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>944</x1>
+            <x2>3.525</x2>
+            <x3>6819</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>949</x1>
+            <x2>3.512</x2>
+            <x3>4740</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>957</x1>
+            <x2>3.541</x2>
+            <x3>3652</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>958</x1>
+            <x2>3.706</x2>
+            <x3>3737</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>964</x1>
+            <x2>3.566</x2>
+            <x3>3882</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>967</x1>
+            <x2>3.515</x2>
+            <x3>3408</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>967</x1>
+            <x2>3.711</x2>
+            <x3>3352</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>971</x1>
+            <x2>3.627</x2>
+            <x3>2377</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>973</x1>
+            <x2>3.624</x2>
+            <x3>2260</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>975</x1>
+            <x2>3.687</x2>
+            <x3>3229</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>977</x1>
+            <x2>3.589</x2>
+            <x3>2893</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>981</x1>
+            <x2>3.646</x2>
+            <x3>2920</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>984</x1>
+            <x2>3.679</x2>
+            <x3>1625</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>987</x1>
+            <x2>3.397</x2>
+            <x3>2075</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>992</x1>
+            <x2>3.448</x2>
+            <x3>1641</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>1000</x1>
+            <x2>3.651</x2>
+            <x3>1103</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>1003</x1>
+            <x2>3.572</x2>
+            <x3>1060</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>1010</x1>
+            <x2>3.454</x2>
+            <x3>628</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>1014</x1>
+            <x2>3.437</x2>
+            <x3>637</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>1021</x1>
+            <x2>3.374</x2>
+            <x3>618</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>1102</x1>
+            <x2>3.393</x2>
+            <x3>184</x3>
+        </dataPoint>
+        <dataPoint>
+            <x1>1118</x1>
+            <x2>3.392</x2>
+            <x3>150</x3>
+        </dataPoint>
+    </dataGroup>
+    <ignitionType target="OH;" type="max"/>
+</experiment>

@@ -115,7 +115,7 @@ class SciExpeM:
 
         if request.requests.status_code == 200:
             if verbose:
-                print(request.requests.text)
+                print(json.loads(request.requests.text))
 
     def updateElement(self, element, model_name: str = None, verbose=False, **kwargs):
         if type(element) == int and not model_name:
@@ -138,7 +138,7 @@ class SciExpeM:
 
         if request.requests.status_code == 200:
             if verbose:
-                print(request.requests.text)
+                print(json.loads(request.requests.text))
 
     def convertList(self, data_list: list, unit: str, desired_unit: str, verbose: bool = False) -> list:
 
@@ -178,7 +178,7 @@ class SciExpeM:
 
         if request.requests.status_code == 200:
             if verbose:
-                print(request.requests.text)
+                print(json.loads(request.requests.text))
 
     def insertElement(self, obj, verbose=False):
 
@@ -196,4 +196,27 @@ class SciExpeM:
 
         if request.requests.status_code == 200:
             if verbose:
-                print("Element Inserted Successfully.")
+                print(json.loads(request.requests.text))
+
+    def deleteElement(self, element, model_name: str = None, verbose=False):
+        if type(element) == int and not model_name:
+            raise Exception("Modal name is not specified.")
+
+        identifier = element if type(element) == int else element.id
+        name = model_name if type(element) == int else element.__class__.__name__
+
+        params = {'model_name': name, 'id': identifier}
+
+        address = 'ExperimentManager/API/deleteElement'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print(json.loads(request.requests.text))
