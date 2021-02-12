@@ -7,3 +7,6 @@ from .CurveMatchingResult import CurveMatchingResult
 from .Execution import Execution
 from .ExecutionColumn import ExecutionColumn
 from .DataColumn import DataColumn
+from .ExperimentClassifier import ExperimentClassifier
+from .RuleClassifier import RuleClassifier
+from .MappingClassifier import MappingClassifier

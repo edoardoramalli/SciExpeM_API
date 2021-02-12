@@ -60,7 +60,7 @@ class Experiment:
         return self._id
 
     @property
-    def experimentClassifier(self):
+    def experiment_classifier(self):
         if not self._experiment_classifier:
             self._experiment_classifier = TL.getProperty('Experiment', self.id, 'experiment_classifier')
             return self._experiment_classifier

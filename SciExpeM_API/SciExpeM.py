@@ -54,6 +54,9 @@ class SciExpeM:
         self.ExecutionColumn = {}
         self.FilePaper = {}
         self.InitialSpecie = {}
+        self.ExperimentClassifier = {}
+        self.MappingClassifier = {}
+        self.RuleClassifier = {}
 
     def getUserInfo(self, username: str, password: str):
 
