@@ -44,7 +44,17 @@ def serialize(obj, exclude):
     if exclude is None:
         exclude = []
     diz = {key.replace('_', '', 1) if key.startswith('_') else key: value for key, value in dict(obj.__dict__).items()}
-    diz = {key: [x.serialize() for x in value] if type(value) == list else value for key, value in diz.items()}
     for e in exclude:
         diz.pop(e, None)
-    return diz
+    tmp = {}
+    for key, value in diz.items():
+        if type(value) == list:
+            tmp[key] = [x.serialize() if not isinstance(x, int) else x for x in value]
+        else:
+            if isinstance(value, FilePaper):
+                tmp[key] = value.serialize()
+            else:
+                tmp[key] = value
+    # diz = {key: [x.serialize() if not isinstance(x, int) else x for x in value] if type(value) == list else value for key, value in diz.items()}
+
+    return tmp

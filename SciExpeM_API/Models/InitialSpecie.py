@@ -3,12 +3,11 @@ import SciExpeM_API.Utility.Tools as TL
 
 class InitialSpecie:
 
-    def __init__(self, id=None):
+    def __init__(self, id=None, name=None, units=None, value=None):
         self._id = id
-        self._name = None
-        self._units = None
-        self._value = None
-        # self._experiment = None
+        self._name = name
+        self._units = units
+        self._value = value
 
     @property
     def id(self):
@@ -49,6 +48,9 @@ class InitialSpecie:
         self._name = None
         self._units = None
         self._value = None
+
+    def serialize(self):
+        return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<InitialSpecie ({self.id})>'

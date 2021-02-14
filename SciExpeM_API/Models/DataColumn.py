@@ -3,19 +3,18 @@ import SciExpeM_API.Utility.Tools as TL
 
 class DataColumn:
 
-    def __init__(self, id=None):
+    def __init__(self, id=None, name=None, units=None, data=None, dg_id=None,
+                 label=None, species=None, plotscale=None, ignore=None, nominal=None):
         self._id = id
-        self._name = None
-        self._units = None
-        self._data = None
-        self._dg_id = None
-        self._label = None
-        self._species = None
-        self._plotscale = None
-        self._ignore = None
-        self._nominal = None
-
-        # self._experiment = experiment
+        self._name = name
+        self._units = units
+        self._data = data
+        self._dg_id = dg_id
+        self._label = label
+        self._species = species
+        self._plotscale = plotscale
+        self._ignore = ignore
+        self._nominal = nominal
 
     @property
     def id(self):
@@ -112,6 +111,8 @@ class DataColumn:
         else:
             return cls(**data_dict)
 
+    def serialize(self):
+        return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<DataColumns ({self.id})>'

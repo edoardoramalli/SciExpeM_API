@@ -136,19 +136,7 @@ def basic_request(address, params, verbose):
     except (RequestException, ConnectionRefusedError, ConnectionError):
         raise API_CONNECTION_EXCEPTION
 
-# START SIMULATION
 
-
-def startSimulation(experiment, chemModel, verbose=False):
-    exp_id = experiment.id
-    chemModel_id = chemModel.id
-    address = "OpenSmoke/API/startSimulation"
-    params = {'experiment': exp_id, 'chemModel': chemModel_id}
-    basic_request(address, params, verbose)
-
-
-
-# END SIMULATION
 
 
 # START ANALYZE

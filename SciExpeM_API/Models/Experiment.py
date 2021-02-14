@@ -8,8 +8,6 @@ from SciExpeM_API import settings
 import json
 
 
-
-
 class Experiment:
 
     # def __init__(self, reactor=None, experiment_type=None, fileDOI=None,
@@ -28,36 +26,53 @@ class Experiment:
     #     self.InitialSpecie = [InitialSpecie.from_dict(data) for data in initial_species]
     #     self.CommonProperty = [CommonProperty.from_dict(data) for data in common_properties]
 
-    def __init__(self, id=None, data_columns=None, file_paper=None,
-                 initial_species=None, common_properties=None, refresh=False):
+    def __init__(self, id: int = None, data_columns=None, file_paper=None, initial_species=None, common_properties=None,
+                 refresh=False,
+                 reactor: str = None, fileDOI: str = None, ignition_type: str = None,
+                 os_input_file: str = None, experiment_type: str = None,
+                 fuels: list = None, phi_inf: float = None, phi_sup: float = None, t_inf: float = None,
+                 t_sup: float = None, p_inf: float = None, p_sup: float = None, comment: str = None):
         self._id = id
 
         # Object
-        self._data_columns = TL.optimize(settings.DB, 'DataColumn', json.dumps(data_columns), refresh=refresh)
-        self._initial_species = TL.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species), refresh=refresh)
-        self._common_properties = TL.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
-        self._file_paper = TL.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]), refresh=refresh)[0]
+        self._data_columns = data_columns if isinstance(data_columns, list) \
+            else TL.optimize(settings.DB, 'DataColumn', json.dumps(data_columns), refresh=refresh)
+        self._initial_species = initial_species if isinstance(initial_species, list) \
+            else TL.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species), refresh=refresh)
+        self._common_properties = common_properties if isinstance(common_properties, list) \
+            else TL.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
+        self._file_paper = file_paper if isinstance(file_paper, FilePaper) else \
+            TL.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]), refresh=refresh)[0]
 
         # Simple
-        self._experiment_type = None
-        self._xml_file = None
-        self._reactor = None
-        self._fileDOI = None
-        self._status = None
-        self._ignition_type = None
-        self._os_input_file = None
-        self._fuels = None
-        self._phi_inf = None
-        self._phi_sup = None
-        self._t_inf = None
-        self._t_sup = None
-        self._p_inf = None
-        self._p_sup = None
+        self._experiment_type = experiment_type
+        self._reactor = reactor
+        self._fileDOI = fileDOI
+        self._ignition_type = ignition_type
+        self._os_input_file = os_input_file
+        self._fuels = fuels
+        self._phi_inf = phi_inf
+        self._phi_sup = phi_sup
+        self._t_inf = t_inf
+        self._t_sup = t_sup
+        self._p_inf = p_inf
+        self._p_sup = p_sup
+        self._comment = comment
         self._experiment_classifier = None
+        self._status = None
+        self._xml_file = None
 
     @property
     def id(self):
         return self._id
+
+    @property
+    def comment(self):
+        if not self._comment:
+            self._comment = TL.getProperty('Experiment', self.id, 'comment')
+            return self._comment
+        else:
+            return self._comment
 
     @property
     def experiment_classifier(self):
@@ -236,6 +251,9 @@ class Experiment:
         self._p_inf = None
         self._p_sup = None
         self._experiment_classifier = None
+
+    def serialize(self):
+        return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<Experiment ({self.id})>'

@@ -10,14 +10,10 @@ class ExperimentClassifier:
         self._name = name
         self._model_type = model_type
         self._solver = solver
-        if type(mappings) == list:
-            self._mappings = mappings
-        else:
-            self._mappings = TL.optimize(settings.DB, 'MappingClassifier', json.dumps(mappings), refresh=refresh)
-        if type(rules) == list:
-            self._rules = rules
-        else:
-            self._rules = TL.optimize(settings.DB, 'RuleClassifier', json.dumps(rules), refresh=refresh)
+        self._mappings = mappings if isinstance(mappings, list) else TL.optimize(settings.DB, 'MappingClassifier',
+                                                                                 json.dumps(mappings), refresh=refresh)
+        self._rules = rules if isinstance(rules, list) else TL.optimize(settings.DB, 'RuleClassifier',
+                                                                        json.dumps(rules), refresh=refresh)
 
     @property
     def id(self):
