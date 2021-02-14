@@ -54,9 +54,9 @@ class SciExpeM:
         self.ExecutionColumn = {}
         self.FilePaper = {}
         self.InitialSpecie = {}
-        self.ExperimentClassifier = {}
-        self.MappingClassifier = {}
-        self.RuleClassifier = {}
+        self.ExperimentInterpreter = {}
+        self.MappingInterpreter = {}
+        self.RuleInterpreter = {}
 
     def getUserInfo(self, username: str, password: str):
 
@@ -81,7 +81,7 @@ class SciExpeM:
 
         q = q_serializer.dumps(query) if query else q_serializer.dumps(Q(*args, **kwargs))
 
-        params = {'model': model_name, 'query': q}
+        params = {'model_name': model_name, 'query': q}
 
         address = 'ExperimentManager/API/filterDataBase'
 

@@ -58,7 +58,7 @@ class Experiment:
         self._p_inf = p_inf
         self._p_sup = p_sup
         self._comment = comment
-        self._experiment_classifier = None
+        self._experiment_interpreter = None
         self._status = None
         self._xml_file = None
 
@@ -75,12 +75,12 @@ class Experiment:
             return self._comment
 
     @property
-    def experiment_classifier(self):
-        if not self._experiment_classifier:
-            self._experiment_classifier = TL.getProperty('Experiment', self.id, 'experiment_classifier')
-            return self._experiment_classifier
+    def experiment_interpreter(self):
+        if not self._experiment_interpreter:
+            self._experiment_interpreter = TL.getProperty('Experiment', self.id, 'experiment_interpreter')
+            return self._experiment_interpreter
         else:
-            return self._experiment_classifier
+            return self._experiment_interpreter
 
     @property
     def p_sup(self):

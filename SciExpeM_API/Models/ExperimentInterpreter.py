@@ -3,16 +3,16 @@ from SciExpeM_API import settings
 import json
 
 
-class ExperimentClassifier:
+class ExperimentInterpreter:
 
     def __init__(self, id=None, mappings=None, rules=None, name=None, model_type=None, solver=None, refresh=False):
         self._id = id
         self._name = name
         self._model_type = model_type
         self._solver = solver
-        self._mappings = mappings if isinstance(mappings, list) else TL.optimize(settings.DB, 'MappingClassifier',
+        self._mappings = mappings if isinstance(mappings, list) else TL.optimize(settings.DB, 'MappingInterpreter',
                                                                                  json.dumps(mappings), refresh=refresh)
-        self._rules = rules if isinstance(rules, list) else TL.optimize(settings.DB, 'RuleClassifier',
+        self._rules = rules if isinstance(rules, list) else TL.optimize(settings.DB, 'RuleInterpreter',
                                                                         json.dumps(rules), refresh=refresh)
 
     @property
@@ -58,4 +58,4 @@ class ExperimentClassifier:
         return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
-        return f'<ExperimentClassifier ({self.id})>'
+        return f'<ExperimentInterpreter ({self.id})>'
