@@ -1,7 +1,7 @@
 import SciExpeM_API.Utility.Tools as TL
 
 
-class RuleClassifier:
+class RuleInterpreter:
 
     def __init__(self, id=None, model_name=None, property_name=None, property_value=None):
         self._id = id
@@ -53,4 +53,4 @@ class RuleClassifier:
         return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
-        return f'<RuleClassifier ({self.id})>'
+        return f'<RuleInterpreter ({self.id})>'

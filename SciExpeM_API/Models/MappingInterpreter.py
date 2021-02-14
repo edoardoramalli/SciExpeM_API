@@ -1,7 +1,7 @@
 import SciExpeM_API.Utility.Tools as TL
 
 
-class MappingClassifier:
+class MappingInterpreter:
 
     def __init__(self, id=None, file=None,
                  x_exp_name=None, x_exp_location=None, x_sim_name=None, x_sim_location=None,
@@ -120,4 +120,4 @@ class MappingClassifier:
         return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
-        return f'<MappingClassifier ({self.id})>'
+        return f'<MappingInterpreter ({self.id})>'
