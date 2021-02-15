@@ -1,29 +1,30 @@
 from SciExpeM_API.Utility.QSerializer import QSerializer
 from django.db.models import Q
-import json
 from .Utility.RequestAPI import HTTP_TYPE, RequestAPI
 from .Utility.Tools import optimize
 from .Utility.User import User
 from SciExpeM_API.Utility import settings
 
 import os
+import json
 
 
-class SciExpeM:
+class SciExpeM(object):
     __instance = None
 
-    @staticmethod
-    def initialize(ip: str, port: int, token: str, secure: bool):
-        if SciExpeM.__instance is None:
-            SciExpeM(ip=ip, port=port, token=token, secure=secure)
-        return SciExpeM.__instance
-
-    def __init__(self, ip: str, port: int, secure: bool,
-                 token: str = None, username: str = None, password: str = None):
-        if SciExpeM.__instance is not None:
-            raise Exception("SciExpeM is a singleton.")
+    def __new__(cls, *args, **kwargs):
+        if cls.__instance is not None:
+            print("Attention. SciExpeM is a singleton.")
+            return cls.__instance
         else:
-            SciExpeM.__instance = self
+            return object.__new__(cls)
+
+    def __init__(self, ip: str = 'sciexpem.chem.polimi.it',
+                 port: int = '443',
+                 secure: bool = True,
+                 token: str = None, username: str = None, password: str = None):
+
+        SciExpeM.__instance = self
         self.ip = ip
         self.port = port
         self.secure = secure
