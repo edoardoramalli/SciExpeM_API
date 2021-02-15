@@ -7,6 +7,6 @@ Download this repository, move inside the directory, create the wheel, and insta
 $ git clone https://github.com/edoardoramalli/SciExpeM_API
 $ cd SciExpeM_API
 $ python setup.py bdist_wheel 
-$ pip install dist/SciExpeM_API-1.0.0-py3-none-any.whl
+$ pip install SciExpeM_API-2.0.0-py3-none-any.whl
 ```
-The last instruction could change based on the OS, and the version of the package.
+**The last instruction could change based on the OS, and the version of the package.**
