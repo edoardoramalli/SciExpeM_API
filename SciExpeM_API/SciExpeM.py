@@ -1,10 +1,10 @@
-from .QSerializer import QSerializer
+from SciExpeM_API.Utility.QSerializer import QSerializer
 from django.db.models import Q
 import json
 from .Utility.RequestAPI import HTTP_TYPE, RequestAPI
 from .Utility.Tools import optimize
 from .Utility.User import User
-from SciExpeM_API import settings
+from SciExpeM_API.Utility import settings
 
 import os
 

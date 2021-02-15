@@ -1,6 +1,4 @@
 import SciExpeM_API.Utility.Tools as TL
-from SciExpeM_API import settings
-import json
 
 
 class ExecutionColumn:

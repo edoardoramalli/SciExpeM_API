@@ -1,6 +1,6 @@
 import pandas as pd
 import SciExpeM_API.Utility.Tools as TL
-from SciExpeM_API import settings
+from SciExpeM_API.Utility import settings
 import json
 
 

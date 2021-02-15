@@ -1,4 +1,4 @@
-import SciExpeM_API.settings as settings
+import SciExpeM_API.Utility.settings as settings
 import SciExpeM_API.Utility.RequestAPI as rAPI
 from SciExpeM_API.Models import *
 import json
