@@ -1,15 +1,12 @@
 import setuptools
 
-from setuptools.command.install import install
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
-
-
 setuptools.setup(
     name="SciExpeM_API",
-    version="1.0.0",
+    version="2.0.0",
     author="Edoardo Ramalli",
     author_email="edoardo.ramalli@polimi.it",
     description="Python wrapper for SciExpeM",
@@ -17,9 +14,16 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/edoardoramalli/SciExpeM_API",
     packages=setuptools.find_packages(),
-    install_requires=['requests', 'django'],
+    install_requires=['requests', 'django', 'simplejson'],
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Chemistry",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Software Development :: Interpreters",
+        "Topic :: Software Development :: Libraries :: Application Frameworks",
+
     ],
     include_package_data=True,
 )

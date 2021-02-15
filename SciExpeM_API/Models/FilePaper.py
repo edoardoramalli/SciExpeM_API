@@ -1,8 +1,31 @@
+import SciExpeM_API.Utility.Tools as TL
+
+
 class FilePaper:
-    def __init__(self, title, reference_doi=None, id=None):
-        self.id = id
-        self.title = title
-        self.reference_doi = reference_doi
+    def __init__(self, id=None, references=None, reference_doi=None):
+        self._id = id
+        self._references = references
+        self._reference_doi = reference_doi
+
+    @property
+    def id(self):
+        return self._id
+
+    @property
+    def references(self):
+        if not self._references:
+            self._references = TL.getProperty('FilePaper', self.id, 'references')
+            return self._references
+        else:
+            return self._references
+
+    @property
+    def reference_doi(self):
+        if not self._reference_doi:
+            self._reference_doi = TL.getProperty('FilePaper', self.id, 'reference_doi')
+            return self._reference_doi
+        else:
+            return self._reference_doi
 
     @classmethod
     def from_dict(cls, data_dict):
@@ -11,14 +34,12 @@ class FilePaper:
         else:
             return cls(**data_dict)
 
-    def serialize(self, exclude=None):
-        if exclude is None:
-            exclude = []
-        diz = dict(self.__dict__)
-        diz.pop("id", None)
-        for e in exclude:
-            diz.pop(e, None)
-        return diz
+    def refresh(self):
+        self._title = None
+        self._reference_doi = None
+
+    def serialize(self):
+        return TL.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<FilePaper ({self.id})>'
