@@ -1,4 +1,4 @@
-import SciExpeM_API.Utility.Tools as TL
+import SciExpeM_API.Utility.Tools as Tool
 from SciExpeM_API.Utility import settings
 import json
 
@@ -10,9 +10,9 @@ class CurveMatchingResult:
         execution = execution_column['execution']
         del execution_column['execution']
         self._execution_column = \
-            TL.optimize(settings.DB, 'ExecutionColumn', json.dumps([execution_column]), refresh=refresh)[0]
+            Tool.optimize(settings.DB, 'ExecutionColumn', json.dumps([execution_column]), refresh=refresh)[0]
         self._execution_column.set_execution(
-            TL.optimize(settings.DB, 'Execution', json.dumps([execution]), refresh=refresh)[0])
+            Tool.optimize(settings.DB, 'Execution', json.dumps([execution]), refresh=refresh)[0])
         self._score = score
         self._error = error
 

@@ -1,4 +1,4 @@
-import SciExpeM_API.Utility.Tools as TL
+import SciExpeM_API.Utility.Tools as Tool
 from SciExpeM_API.Utility import settings
 import json
 
@@ -10,10 +10,11 @@ class ExperimentInterpreter:
         self._name = name
         self._model_type = model_type
         self._solver = solver
-        self._mappings = mappings if isinstance(mappings, list) else TL.optimize(settings.DB, 'MappingInterpreter',
-                                                                                 json.dumps(mappings), refresh=refresh)
-        self._rules = rules if isinstance(rules, list) else TL.optimize(settings.DB, 'RuleInterpreter',
-                                                                        json.dumps(rules), refresh=refresh)
+        self._mappings = mappings if isinstance(mappings, list) else Tool.optimize(settings.DB, 'MappingInterpreter',
+                                                                                   json.dumps(mappings),
+                                                                                   refresh=refresh)
+        self._rules = rules if isinstance(rules, list) else Tool.optimize(settings.DB, 'RuleInterpreter',
+                                                                          json.dumps(rules), refresh=refresh)
 
     @property
     def id(self):
@@ -22,7 +23,7 @@ class ExperimentInterpreter:
     @property
     def name(self):
         if not self._name:
-            self._name = TL.getProperty(self.__class__.__name__, self.id, 'name')
+            self._name = Tool.getProperty(self.__class__.__name__, self.id, 'name')
             return self._name
         else:
             return self._name
@@ -30,7 +31,7 @@ class ExperimentInterpreter:
     @property
     def solver(self):
         if not self._solver:
-            self._solver = TL.getProperty(self.__class__.__name__, self.id, 'solver')
+            self._solver = Tool.getProperty(self.__class__.__name__, self.id, 'solver')
             return self._solver
         else:
             return self._solver
@@ -38,7 +39,7 @@ class ExperimentInterpreter:
     @property
     def model_type(self):
         if not self._model_type:
-            self._model_type = TL.getProperty(self.__class__.__name__, self.id, 'model_type')
+            self._model_type = Tool.getProperty(self.__class__.__name__, self.id, 'model_type')
             return self._model_type
         else:
             return self._model_type
@@ -55,7 +56,7 @@ class ExperimentInterpreter:
         self._model_type = None
 
     def serialize(self):
-        return TL.serialize(self, exclude=['id'])
+        return Tool.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<ExperimentInterpreter ({self.id})>'

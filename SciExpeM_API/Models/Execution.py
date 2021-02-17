@@ -1,5 +1,5 @@
 import pandas as pd
-import SciExpeM_API.Utility.Tools as TL
+import SciExpeM_API.Utility.Tools as Tool
 from SciExpeM_API.Utility import settings
 import json
 
@@ -8,9 +8,10 @@ class Execution:
 
     def __init__(self, chemModel=None, experiment=None, execution_columns=None, id=None, refresh=False):
         self._id = id
-        self._chemModel = TL.optimize(settings.DB, 'ChemModel', json.dumps([chemModel]), refresh=refresh)[0]
-        self._experiment = TL.optimize(settings.DB, 'Experiment', json.dumps([experiment]), refresh=refresh)[0]
-        self._execution_columns = TL.optimize(settings.DB, 'ExecutionColumn', json.dumps(execution_columns), refresh=refresh)
+        self._chemModel = Tool.optimize(settings.DB, 'ChemModel', json.dumps([chemModel]), refresh=refresh)[0]
+        self._experiment = Tool.optimize(settings.DB, 'Experiment', json.dumps([experiment]), refresh=refresh)[0]
+        self._execution_columns = Tool.optimize(settings.DB, 'ExecutionColumn', json.dumps(execution_columns),
+                                                refresh=refresh)
         for exec_col in self._execution_columns:
             exec_col.set_execution(self)
 
@@ -24,11 +25,10 @@ class Execution:
     @property
     def username(self):
         if not self._username:
-            self._username = TL.getProperty(self.__class__.__name__, self.id, 'username')
+            self._username = Tool.getProperty(self.__class__.__name__, self.id, 'username')
             return self._username
         else:
             return self._username
-
 
     @property
     def id(self):
@@ -49,7 +49,7 @@ class Execution:
     @property
     def execution_start(self):
         if not self._execution_start:
-            self._execution_start = TL.getProperty(self.__class__.__name__, self.id, 'execution_start')
+            self._execution_start = Tool.getProperty(self.__class__.__name__, self.id, 'execution_start')
             return self._execution_start
         else:
             return self._execution_start
@@ -57,7 +57,7 @@ class Execution:
     @property
     def execution_end(self):
         if not self._execution_end:
-            self._execution_end = TL.getProperty(self.__class__.__name__, self.id, 'execution_end')
+            self._execution_end = Tool.getProperty(self.__class__.__name__, self.id, 'execution_end')
             return self._execution_end
         else:
             return self._execution_end
@@ -88,7 +88,7 @@ class Execution:
             units[file] = {}
 
         for column in execution_columns_list:
-            results[column.file_type][column.label] = column.data #, dtype=SI(column.units).units)
+            results[column.file_type][column.label] = column.data  # , dtype=SI(column.units).units)
             units[column.file_type][column.label] = column.units
 
         return results, units

@@ -1,4 +1,4 @@
-import SciExpeM_API.Utility.Tools as TL
+import SciExpeM_API.Utility.Tools as Tool
 
 
 class ExecutionColumn:
@@ -26,7 +26,7 @@ class ExecutionColumn:
     @property
     def data(self):
         if not self._data:
-            self._data = TL.getProperty(self.__class__.__name__, self.id, 'data')
+            self._data = Tool.getProperty(self.__class__.__name__, self.id, 'data')
             return self._data
         else:
             return self._data
@@ -34,7 +34,7 @@ class ExecutionColumn:
     @property
     def species(self):
         if not self._species:
-            self._species = TL.getProperty(self.__class__.__name__, self.id, 'species')
+            self._species = Tool.getProperty(self.__class__.__name__, self.id, 'species')
             return self._species
         else:
             return self._species
@@ -42,7 +42,7 @@ class ExecutionColumn:
     @property
     def file_type(self):
         if not self._file_type:
-            self._file_type = TL.getProperty(self.__class__.__name__, self.id, 'file_type')
+            self._file_type = Tool.getProperty(self.__class__.__name__, self.id, 'file_type')
             return self._file_type
         else:
             return self._file_type
@@ -50,7 +50,7 @@ class ExecutionColumn:
     @property
     def label(self):
         if not self._label:
-            self._label = TL.getProperty(self.__class__.__name__, self.id, 'label')
+            self._label = Tool.getProperty(self.__class__.__name__, self.id, 'label')
             return self._label
         else:
             return self._label
@@ -58,7 +58,7 @@ class ExecutionColumn:
     @property
     def name(self):
         if not self._name:
-            self._name = TL.getProperty(self.__class__.__name__, self.id, 'name')
+            self._name = Tool.getProperty(self.__class__.__name__, self.id, 'name')
             return self._name
         else:
             return self._name
@@ -66,7 +66,7 @@ class ExecutionColumn:
     @property
     def units(self):
         if not self._units:
-            self._units = TL.getProperty(self.__class__.__name__, self.id, 'units')
+            self._units = Tool.getProperty(self.__class__.__name__, self.id, 'units')
             return self._units
         else:
             return self._units
@@ -79,7 +79,6 @@ class ExecutionColumn:
         self._label = None
         self._units = None
         self._execution = None
-
 
     @classmethod
     def from_dict(cls, data_dict):

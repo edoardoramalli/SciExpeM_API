@@ -1,4 +1,4 @@
-import SciExpeM_API.Utility.Tools as TL
+import SciExpeM_API.Utility.Tools as Tool
 
 
 class DataColumn:
@@ -23,7 +23,7 @@ class DataColumn:
     @property
     def data(self):
         if not self._data:
-            self._data = TL.getProperty(self.__class__.__name__, self.id, 'data')
+            self._data = Tool.getProperty(self.__class__.__name__, self.id, 'data')
             return self._data
         else:
             return self._data
@@ -31,7 +31,7 @@ class DataColumn:
     @property
     def species(self):
         if not self._species:
-            self._species = TL.getProperty(self.__class__.__name__, self.id, 'species')
+            self._species = Tool.getProperty(self.__class__.__name__, self.id, 'species')
             return self._species
         else:
             return self._species
@@ -39,7 +39,7 @@ class DataColumn:
     @property
     def nominal(self):
         if not self._nominal:
-            self._nominal = TL.getProperty(self.__class__.__name__, self.id, 'nominal')
+            self._nominal = Tool.getProperty(self.__class__.__name__, self.id, 'nominal')
             return self._nominal
         else:
             return self._nominal
@@ -47,7 +47,7 @@ class DataColumn:
     @property
     def ignore(self):
         if not self._ignore:
-            self._ignore = TL.getProperty(self.__class__.__name__, self.id, 'ignore')
+            self._ignore = Tool.getProperty(self.__class__.__name__, self.id, 'ignore')
             return self._ignore
         else:
             return self._ignore
@@ -55,7 +55,7 @@ class DataColumn:
     @property
     def plotscale(self):
         if not self._plotscale:
-            self._plotscale = TL.getProperty(self.__class__.__name__, self.id, 'plotscale')
+            self._plotscale = Tool.getProperty(self.__class__.__name__, self.id, 'plotscale')
             return self._plotscale
         else:
             return self._plotscale
@@ -63,7 +63,7 @@ class DataColumn:
     @property
     def label(self):
         if not self._label:
-            self._label = TL.getProperty(self.__class__.__name__, self.id, 'label')
+            self._label = Tool.getProperty(self.__class__.__name__, self.id, 'label')
             return self._label
         else:
             return self._label
@@ -71,7 +71,7 @@ class DataColumn:
     @property
     def dg_id(self):
         if not self._dg_id:
-            self._dg_id = TL.getProperty(self.__class__.__name__, self.id, 'dg_id')
+            self._dg_id = Tool.getProperty(self.__class__.__name__, self.id, 'dg_id')
             return self._dg_id
         else:
             return self._dg_id
@@ -79,7 +79,7 @@ class DataColumn:
     @property
     def name(self):
         if not self._name:
-            self._name = TL.getProperty(self.__class__.__name__, self.id, 'name')
+            self._name = Tool.getProperty(self.__class__.__name__, self.id, 'name')
             return self._name
         else:
             return self._name
@@ -87,7 +87,7 @@ class DataColumn:
     @property
     def units(self):
         if not self._units:
-            self._units = TL.getProperty(self.__class__.__name__, self.id, 'units')
+            self._units = Tool.getProperty(self.__class__.__name__, self.id, 'units')
             return self._units
         else:
             return self._units
@@ -103,7 +103,6 @@ class DataColumn:
         self._ignore = None
         self._nominal = None
 
-
     @classmethod
     def from_dict(cls, data_dict):
         if isinstance(data_dict, cls):
@@ -112,7 +111,7 @@ class DataColumn:
             return cls(**data_dict)
 
     def serialize(self):
-        return TL.serialize(self, exclude=['id'])
+        return Tool.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<DataColumns ({self.id})>'

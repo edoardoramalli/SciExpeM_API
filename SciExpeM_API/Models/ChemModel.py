@@ -1,4 +1,4 @@
-import SciExpeM_API.Utility.Tools as TL
+import SciExpeM_API.Utility.Tools as Tool
 
 
 class ChemModel:
@@ -17,7 +17,7 @@ class ChemModel:
     @property
     def version(self):
         if not self._version:
-            self._version = TL.getProperty(self.__class__.__name__, self.id, 'version')
+            self._version = Tool.getProperty(self.__class__.__name__, self.id, 'version')
             return self._version
         else:
             return self._version
@@ -26,7 +26,7 @@ class ChemModel:
     @property
     def xml_file_reaction_names(self):
         if not self._xml_file_reaction_names:
-            self._xml_file_reaction_names = TL.getProperty(self.__class__.__name__, self.id, 'xml_file_reaction_names')
+            self._xml_file_reaction_names = Tool.getProperty(self.__class__.__name__, self.id, 'xml_file_reaction_names')
             return self._xml_file_reaction_names
         else:
             return self._xml_file_reaction_names
@@ -34,7 +34,7 @@ class ChemModel:
     @property
     def xml_file_kinetics(self):
         if not self._xml_file_kinetics:
-            self._xml_file_kinetics = TL.getProperty(self.__class__.__name__, self.id, 'xml_file_kinetics')
+            self._xml_file_kinetics = Tool.getProperty(self.__class__.__name__, self.id, 'xml_file_kinetics')
             return self._xml_file_kinetics
         else:
             return self._xml_file_kinetics
@@ -42,7 +42,7 @@ class ChemModel:
     @property
     def name(self):
         if not self._name:
-            self._name = TL.getProperty(self.__class__.__name__, self.id, 'name')
+            self._name = Tool.getProperty(self.__class__.__name__, self.id, 'name')
             return self._name
         else:
             return self._name
@@ -60,7 +60,7 @@ class ChemModel:
         self._xml_file_reaction_names = None
 
     def serialize(self):
-        return TL.serialize(self, exclude=['id'])
+        return Tool.serialize(self, exclude=['id'])
 
     def __repr__(self):
         return f'<ChemModel ({self.id})>'
