@@ -1,7 +1,7 @@
 # SciExpeM_API
-Python wrapper for [SciExpeM](https://sciexpem.chem.polimi.it) API.
+API Python wrapper for [SciExpeM](https://sciexpem.chem.polimi.it)
 
-# Installation using 'pip'
+# Install using 'pip'
 ```sh
 $ pip install SciExpeM-API 
 ```
@@ -11,7 +11,7 @@ $ pip install SciExpeM-API
 $ pip install SciExpeM-API --upgrade
 ```
 
-# Installation from source code
+# Install from source code
 Download this repository, move inside the directory, create the wheel, and install the package inside your python enviroment.
 
 ```sh
