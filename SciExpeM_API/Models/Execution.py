@@ -19,6 +19,16 @@ class Execution:
 
         self._execution_start = None
         self._execution_end = None
+        self._username = None
+
+    @property
+    def username(self):
+        if not self._username:
+            self._username = TL.getProperty(self.__class__.__name__, self.id, 'username')
+            return self._username
+        else:
+            return self._username
+
 
     @property
     def id(self):

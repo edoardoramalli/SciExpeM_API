@@ -244,3 +244,30 @@ class SciExpeM(object):
         if request.requests.status_code == 200:
             if verbose:
                 print(json.loads(request.requests.text))
+
+    def executeCurveMatching(self, x_sim: list[float], y_sim: list[float],
+                             x_exp: list[float], y_exp: list[float], uncertainty: list[float] = [],
+                             verbose=False, **kwargs):
+
+        params = {'x_sim': x_sim, 'y_sim': y_sim,
+                  'x_exp': x_exp, 'y_exp': y_exp,
+                  'uncertainty': json.dumps(uncertainty),
+                  'configuration': json.dumps(kwargs if kwargs else {})}
+
+        address = 'CurveMatching/API/executeCurveMatching'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print('Curve Matching executed successfully.')
+
+        response = json.loads((json.loads(request.requests.text)))
+
+        return response['score'], response['error']

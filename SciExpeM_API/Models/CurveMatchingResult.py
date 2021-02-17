@@ -5,7 +5,7 @@ import json
 
 class CurveMatchingResult:
 
-    def __init__(self, id=None, index=None, error=None, execution_column=None, refresh=False):
+    def __init__(self, id=None, score=None, error=None, execution_column=None, refresh=False):
         self._id = id
         execution = execution_column['execution']
         del execution_column['execution']
@@ -13,7 +13,7 @@ class CurveMatchingResult:
             TL.optimize(settings.DB, 'ExecutionColumn', json.dumps([execution_column]), refresh=refresh)[0]
         self._execution_column.set_execution(
             TL.optimize(settings.DB, 'Execution', json.dumps([execution]), refresh=refresh)[0])
-        self._index = index
+        self._score = score
         self._error = error
 
     @property
@@ -25,12 +25,12 @@ class CurveMatchingResult:
         return self._execution_column
 
     @property
-    def index(self):
-        return self._index
-
-    @property
     def error(self):
         return self._error
+
+    @property
+    def score(self):
+        return self._score
 
     @classmethod
     def from_dict(cls, data_dict):

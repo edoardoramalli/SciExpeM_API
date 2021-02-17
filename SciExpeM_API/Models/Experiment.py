@@ -61,10 +61,19 @@ class Experiment:
         self._experiment_interpreter = None
         self._status = None
         self._xml_file = None
+        self._username = None
 
     @property
     def id(self):
         return self._id
+
+    @property
+    def username(self):
+        if not self._username:
+            self._username = TL.getProperty('Experiment', self.id, 'username')
+            return self._username
+        else:
+            return self._username
 
     @property
     def comment(self):

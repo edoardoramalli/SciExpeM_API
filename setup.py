@@ -14,7 +14,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/edoardoramalli/SciExpeM_API",
     packages=setuptools.find_packages(),
-    install_requires=['requests', 'django', 'simplejson'],
+    install_requires=['requests', 'django', 'simplejson', 'pandas'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
