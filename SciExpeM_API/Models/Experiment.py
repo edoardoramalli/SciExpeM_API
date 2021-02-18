@@ -10,22 +10,6 @@ import json
 
 class Experiment:
 
-    # def __init__(self, reactor=None, experiment_type=None, fileDOI=None,
-    #              data_columns=None, initial_species=None, common_properties=None, status=None,
-    #              fuels=None,
-    #              phi_inf=None, phi_sup=None,
-    #              t_inf=None, t_sup=None,
-    #              p_inf=None, p_sup=None,
-    #              experimentClassifier=None,
-    #              file_paper=None,
-    #              ignition_type=None, xml_file=None, os_input_file=None, id=None):
-    #     self.id = id
-    #     self.FilePaper = FilePaper.from_dict(file_paper) if file_paper else None
-    #     self.DataColumn = [DataColumn.from_dict(data) for data in data_columns]
-    #     self.data_columns_df, self.data_columns_units = self.data_columns_df(self.DataColumn)
-    #     self.InitialSpecie = [InitialSpecie.from_dict(data) for data in initial_species]
-    #     self.CommonProperty = [CommonProperty.from_dict(data) for data in common_properties]
-
     def __init__(self, id: int = None, data_columns=None, file_paper=None, initial_species=None, common_properties=None,
                  refresh=False,
                  reactor: str = None, fileDOI: str = None, ignition_type: str = None,

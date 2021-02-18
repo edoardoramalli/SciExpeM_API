@@ -271,3 +271,25 @@ class SciExpeM(object):
         response = json.loads((json.loads(request.requests.text)))
 
         return response['score'], response['error']
+
+    def getCurveMatching(self, experiment, verbose=False):
+        experiment_id = experiment if type(experiment) == int else experiment.id
+        params = {'experiment': experiment_id}
+
+        address = 'ExperimentManager/API/getCurveMatching'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print('Get Curve Matching executed successfully.')
+
+        # response = json.loads((json.loads(request.requests.text)))
+
+        return json.loads(request.requests.text)
