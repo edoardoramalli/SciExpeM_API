@@ -246,8 +246,7 @@ class SciExpeM(object):
                 print(json.loads(request.requests.text))
 
     def executeCurveMatching(self, x_sim: list[float], y_sim: list[float],
-                             x_exp: list[float], y_exp: list[float], uncertainty: list[float] = [],
-                             verbose=False, **kwargs):
+                             x_exp: list[float], y_exp: list[float], uncertainty: list[float] = [], verbose=False, **kwargs):
 
         params = {'x_sim': x_sim, 'y_sim': y_sim,
                   'x_exp': x_exp, 'y_exp': y_exp,
