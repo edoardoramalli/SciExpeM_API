@@ -20,7 +20,6 @@ def getProperty(model_name, element_id, property_name):
 
 
 def optimize(database, model_name, text, refresh=False):
-    # print(model_name, text)
     model = eval(model_name)
     refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment']
     if model in refresh_models:

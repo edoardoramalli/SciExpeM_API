@@ -99,7 +99,7 @@ class SciExpeM(object):
         else:
             if verbose:
                 print("Filter Request Successful.")
-            return optimize(self, model_name, request.requests.text, refresh)
+            return optimize(self, model_name, json.loads(request.requests.text), refresh)
 
     def loadExperiment(self, path, format_file, verbose=False):
         if not os.path.isfile(path):
@@ -288,6 +288,29 @@ class SciExpeM(object):
         if request.requests.status_code == 200:
             if verbose:
                 print('Get Curve Matching executed successfully.')
+
+        # response = json.loads((json.loads(request.requests.text)))
+
+        return json.loads(request.requests.text)
+
+
+    def prova(self, verbose=False):
+
+        params = {}
+
+        address = 'ExperimentManager/API/prova'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print('ok')
 
         # response = json.loads((json.loads(request.requests.text)))
 
