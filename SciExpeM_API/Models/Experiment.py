@@ -19,11 +19,11 @@ class Experiment:
         self._id = id
 
         # Object
-        self._data_columns = data_columns if isinstance(data_columns, list) \
+        self._data_columns = data_columns if Tool.checkListType(data_columns, DataColumn) \
             else Tool.optimize(settings.DB, 'DataColumn', json.dumps(data_columns), refresh=refresh)
-        self._initial_species = initial_species if isinstance(initial_species, list) \
+        self._initial_species = initial_species if Tool.checkListType(data_columns, InitialSpecie) \
             else Tool.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species), refresh=refresh)
-        self._common_properties = common_properties if isinstance(common_properties, list) \
+        self._common_properties = common_properties if Tool.checkListType(data_columns, CommonProperty) \
             else Tool.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
         self._file_paper = file_paper if isinstance(file_paper, FilePaper) else \
             Tool.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]), refresh=refresh)[0]

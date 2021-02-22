@@ -57,3 +57,7 @@ def serialize(obj, exclude):
     # diz = {key: [x.serialize() if not isinstance(x, int) else x for x in value] if type(value) == list else value for key, value in diz.items()}
 
     return tmp
+
+
+def checkListType(obj, check_type):
+    return all(isinstance(x, check_type) for x in obj)

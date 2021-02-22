@@ -99,7 +99,7 @@ class SciExpeM(object):
         else:
             if verbose:
                 print("Filter Request Successful.")
-            return optimize(self, model_name, json.loads(request.requests.text), refresh)
+            return optimize(self, model_name, request.requests.text, refresh)
 
     def loadExperiment(self, path, format_file, verbose=False):
         if not os.path.isfile(path):
