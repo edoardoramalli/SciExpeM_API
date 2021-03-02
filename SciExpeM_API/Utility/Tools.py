@@ -5,7 +5,7 @@ import json
 
 
 def getProperty(model_name, element_id, property_name):
-    params = {'model_name': model_name, 'id': element_id, 'property': property_name}
+    params = {'model_name': model_name, 'element_id': element_id, 'property_name': property_name}
 
     address = 'ExperimentManager/API/requestProperty'
 

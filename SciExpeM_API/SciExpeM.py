@@ -128,7 +128,7 @@ class SciExpeM(object):
         identifier = element if type(element) == int else element.id
         name = model_name if type(element) == int else element.__class__.__name__
 
-        params = {'model_name': name, 'property': json.dumps(kwargs), 'id': identifier}
+        params = {'model_name': name, 'property_dict': json.dumps(kwargs), 'element_id': identifier}
 
         address = 'ExperimentManager/API/updateElement'
 
@@ -168,7 +168,7 @@ class SciExpeM(object):
 
         identifier = experiment if type(experiment) == int else experiment.id
 
-        params = {'status': status, 'id': identifier}
+        params = {'status': status, 'exp_id': identifier}
 
         address = 'ExperimentManager/API/verifyExperiment'
 
@@ -186,7 +186,7 @@ class SciExpeM(object):
 
     def insertElement(self, obj, verbose=False):
 
-        params = {'model_name': obj.__class__.__name__, 'property': json.dumps(obj.serialize())}
+        params = {'model_name': obj.__class__.__name__, 'property_dict': json.dumps(obj.serialize())}
 
         address = 'ExperimentManager/API/insertElement'
 
@@ -209,7 +209,7 @@ class SciExpeM(object):
         identifier = element if type(element) == int else element.id
         name = model_name if type(element) == int else element.__class__.__name__
 
-        params = {'model_name': name, 'id': identifier}
+        params = {'model_name': name, 'element_id': identifier}
 
         address = 'ExperimentManager/API/deleteElement'
 
@@ -273,7 +273,7 @@ class SciExpeM(object):
 
     def getCurveMatching(self, experiment, verbose=False):
         experiment_id = experiment if type(experiment) == int else experiment.id
-        params = {'experiment': experiment_id}
+        params = {'exp_id': experiment_id}
 
         address = 'ExperimentManager/API/getCurveMatching'
 
@@ -296,9 +296,9 @@ class SciExpeM(object):
 
     def prova(self, verbose=False):
 
-        params = {}
+        params = {'exp_id': 5}
 
-        address = 'ExperimentManager/API/prova'
+        address = 'frontend/API/prova'
 
         request = RequestAPI(ip=self.ip,
                              port=self.port,
