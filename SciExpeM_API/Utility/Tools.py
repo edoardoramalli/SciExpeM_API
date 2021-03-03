@@ -5,7 +5,7 @@ import json
 
 
 def getProperty(model_name, element_id, property_name):
-    params = {'model_name': model_name, 'id': element_id, 'property': property_name}
+    params = {'model_name': model_name, 'element_id': element_id, 'property_name': property_name}
 
     address = 'ExperimentManager/API/requestProperty'
 
@@ -20,7 +20,6 @@ def getProperty(model_name, element_id, property_name):
 
 
 def optimize(database, model_name, text, refresh=False):
-    # print(model_name, text)
     model = eval(model_name)
     refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment']
     if model in refresh_models:
@@ -58,3 +57,7 @@ def serialize(obj, exclude):
     # diz = {key: [x.serialize() if not isinstance(x, int) else x for x in value] if type(value) == list else value for key, value in diz.items()}
 
     return tmp
+
+
+def checkListType(obj, check_type):
+    return all(isinstance(x, check_type) for x in obj)
