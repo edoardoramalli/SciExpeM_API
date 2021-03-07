@@ -13,7 +13,7 @@ class SciExpeM(_ExperimentManager):
 
     def __new__(cls, *args, **kwargs):
         if cls.__instance is not None:
-            print("Attention. EndPoints is a singleton.")
+            print("Attention. SciExpeM is a singleton.")
             return cls.__instance
         else:
             return object.__new__(cls)
@@ -165,9 +165,9 @@ class SciExpeM(_ExperimentManager):
 
     def prova(self, verbose=False):
 
-        params = {'exp_id': 5}
+        params = {'file': open('/Users/edoardo/Documents/GitHub/SciExpeM_API/SciExpeM_API/concentrationProfileExample').read()}
 
-        address = 'frontend/API/prova'
+        address = 'ReSpecTh/API/executeOptimaPP'
 
         request = RequestAPI(ip=self.ip,
                              port=self.port,

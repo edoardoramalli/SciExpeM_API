@@ -117,8 +117,8 @@ class _ExperimentManager(object):
             if verbose:
                 print(json.loads(request.requests.text))
 
-    def getCurveMatching(self, experiment, verbose=False):
-        experiment_id = experiment if type(experiment) == int else experiment.id
+    def getCurveMatching(self, experiment: list, verbose=False):
+        experiment_id = experiment if type(experiment[0]) == int else [exp.id for exp in experiment]
         params = {'exp_id': experiment_id}
 
         address = 'ExperimentManager/API/getCurveMatching'
