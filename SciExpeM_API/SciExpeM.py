@@ -136,8 +136,13 @@ class SciExpeM(_ExperimentManager):
             if verbose:
                 print(json.loads(request.requests.text))
 
-    def executeCurveMatching(self, x_sim: list[float], y_sim: list[float],
-                             x_exp: list[float], y_exp: list[float], uncertainty: list[float] = [], verbose=False,
+    def executeCurveMatching(self,
+                             x_sim: list[float],
+                             y_sim: list[float],
+                             x_exp: list[float],
+                             y_exp: list[float],
+                             uncertainty: list[float] = [],
+                             verbose=False,
                              **kwargs):
 
         params = {'x_sim': x_sim, 'y_sim': y_sim,
@@ -163,11 +168,30 @@ class SciExpeM(_ExperimentManager):
 
         return response['score'], response['error']
 
+
+    def getPropertyList(self, model_name, exp_id, fields, verbose=False):
+
+        params = {'fields': fields, 'name': model_name, 'exp_id': exp_id}
+
+        address = 'frontend/API/getPropertyList'
+
+        request = RequestAPI(ip=self.ip,
+                             port=self.port,
+                             address=address,
+                             token=self.token,
+                             mode=HTTP_TYPE.POST,
+                             secure=self.secure,
+                             params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print(json.loads(request.requests.text))
+
     def prova(self, verbose=False):
 
-        params = {'file': open('/Users/edoardo/Documents/GitHub/SciExpeM_API/SciExpeM_API/concentrationProfileExample').read()}
+        params = {'execution_id': 18}
 
-        address = 'ReSpecTh/API/executeOptimaPP'
+        address = 'frontend/API/getExecutionColumn'
 
         request = RequestAPI(ip=self.ip,
                              port=self.port,

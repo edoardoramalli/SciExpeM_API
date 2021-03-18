@@ -18,7 +18,7 @@ class RequestAPI:
         self.params = params
         self.token = token
         self.mode = mode
-        self.headers = {"Authorization": "Token " + token} if token else None
+        self.headers = {"Authorization": "Token " + token, "Content-Type": "application/json"} if token else None
         if secure:
             init = "https://"
         else:
@@ -26,9 +26,9 @@ class RequestAPI:
         url = init + ip + ":" + str(port) + "/" + address
         try:
             if mode == HTTP_TYPE.GET:
-                self.requests = requests.get(url, headers=self.headers, params=self.params)
+                self.requests = requests.get(url, headers=self.headers, json=self.params)
             elif mode == HTTP_TYPE.POST:
-                self.requests = requests.post(url, headers=self.headers, data=self.params)
+                self.requests = requests.post(url, headers=self.headers, json=self.params)
             self.status_code = self.requests.status_code
             self.requests.raise_for_status()
         except requests.exceptions.HTTPError:
