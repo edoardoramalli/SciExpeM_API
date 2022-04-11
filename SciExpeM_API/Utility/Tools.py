@@ -9,22 +9,20 @@ def getProperty(model_name, element_id, property_name):
 
     address = 'ExperimentManager/API/requestProperty'
 
-    request = rAPI.RequestAPI(ip=settings.IP,
-                              port=settings.PORT,
-                              address=address,
-                              token=settings.TOKEN,
-                              mode=rAPI.HTTP_TYPE.POST,
-                              secure=settings.SECURE,
-                              params=params)
+    request = rAPI.RequestAPI(address=address, mode=rAPI.HTTP_TYPE.POST, params=params)
+
     return json.loads(request.requests.text) if json.loads(request.requests.text) != '' else None
 
 
 def optimize(database, model_name, text, refresh=False):
     model = eval(model_name)
-    refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment']
+    refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment', 'DataColumn', 'Specie']
     if model in refresh_models:
         text['refresh'] = refresh
-    tmp = [model.from_dict(element) for element in json.loads(text)]
+    data_structure = json.loads(text)
+    if data_structure == [None]:
+        return None
+    tmp = [model.from_dict(element) for element in data_structure]
     result = []
 
     for element in tmp:
@@ -48,7 +46,12 @@ def serialize(obj, exclude):
     tmp = {}
     for key, value in diz.items():
         if type(value) == list:
-            tmp[key] = [x.serialize() if not isinstance(x, int) else x for x in value]
+            for x in value:
+                if not isinstance(x, int) and not isinstance(x, str):
+                    tmp[key] = tmp.get(key, []) + [x.serialize()]
+                else:
+                    tmp[key] = tmp.get(key, []) + [x]
+            # tmp[key] = [x.serialize() if not isinstance(x, int) or not isinstance(x, str) else x for x in value]
         else:
             if isinstance(value, FilePaper):
                 tmp[key] = value.serialize()

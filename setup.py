@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SciExpeM_API",
-    version="2.0.2.2",
+    version="2.0.2.95",
     author="Edoardo Ramalli",
     author_email="edoardo.ramalli@polimi.it",
     description="Python wrapper for SciExpeM EndPoints",
@@ -27,3 +27,6 @@ setuptools.setup(
     ],
     include_package_data=True,
 )
+
+# python setup.py bdist_wheel
+# python -m twine upload dist/*

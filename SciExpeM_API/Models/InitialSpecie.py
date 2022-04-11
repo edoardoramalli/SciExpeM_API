@@ -1,13 +1,20 @@
 import SciExpeM_API.Utility.Tools as Tool
+import pandas as pd
+from .Specie import Specie
+from SciExpeM_API.Utility import settings
+import json
 
 
 class InitialSpecie:
 
-    def __init__(self, id=None, name=None, units=None, value=None):
+    def __init__(self, id=None, name=None, units=None, value=None, source_type=None, specie=None, refresh=False):
         self._id = id
         self._name = name
         self._units = units
         self._value = value
+        self._source_type = source_type
+        self._specie = specie if isinstance(specie, Specie) else \
+            Tool.optimize(settings.DB, 'Specie', json.dumps([specie]), refresh=refresh)[0]
 
     @property
     def id(self):
@@ -37,6 +44,14 @@ class InitialSpecie:
         else:
             return self._value
 
+    @property
+    def source_type(self):
+        if not self._source_type:
+            self._source_type = Tool.getProperty(self.__class__.__name__, self.id, 'source_type')
+            return self._source_type
+        else:
+            return self._source_type
+
     @classmethod
     def from_dict(cls, data_dict):
         if isinstance(data_dict, cls):
@@ -44,10 +59,15 @@ class InitialSpecie:
         else:
             return cls(**data_dict)
 
+    @property
+    def specie(self):
+        return self._specie
+
     def refresh(self):
         self._name = None
         self._units = None
         self._value = None
+        self._source_type = None
 
     def serialize(self):
         return Tool.serialize(self, exclude=['id'])

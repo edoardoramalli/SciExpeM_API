@@ -18,13 +18,7 @@ class _ExperimentManager(object):
 
         address = 'ExperimentManager/API/filterDataBase'
 
-        request = RequestAPI(ip=self.ip,
-                             port=self.port,
-                             address=address,
-                             token=self.token,
-                             mode=HTTP_TYPE.POST,
-                             secure=self.secure,
-                             params=params)
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
         if request.status_code != 200:
             return []
@@ -41,13 +35,7 @@ class _ExperimentManager(object):
 
         address = 'ExperimentManager/API/loadExperiment'
 
-        request = RequestAPI(ip=self.ip,
-                             port=self.port,
-                             address=address,
-                             token=self.token,
-                             mode=HTTP_TYPE.POST,
-                             secure=self.secure,
-                             params=params)
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
         if request.requests.status_code == 200:
             if verbose:
@@ -64,31 +52,31 @@ class _ExperimentManager(object):
 
         address = 'ExperimentManager/API/updateElement'
 
-        request = RequestAPI(ip=self.ip,
-                             port=self.port,
-                             address=address,
-                             token=self.token,
-                             mode=HTTP_TYPE.POST,
-                             secure=self.secure,
-                             params=params)
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
         if request.requests.status_code == 200:
             if verbose:
                 print(json.loads(request.requests.text))
 
-    def insertElement(self, obj, verbose=False):
+    def insertElement(self, obj=None, verbose=False):
 
-        params = {'model_name': obj.__class__.__name__, 'property_dict': json.dumps(obj.serialize())}
+        params = {'model_name': obj.__class__.__name__,'property_dict': json.dumps(obj.serialize())}
 
         address = 'ExperimentManager/API/insertElement'
 
-        request = RequestAPI(ip=self.ip,
-                             port=self.port,
-                             address=address,
-                             token=self.token,
-                             mode=HTTP_TYPE.POST,
-                             secure=self.secure,
-                             params=params)
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print(json.loads(request.requests.text))
+
+    def insertJson(self, json_object, verbose=False):
+
+        params = {'model_name': 'Experiment', 'property_dict': json.dumps(json_object)}
+
+        address = 'ExperimentManager/API/insertElement'
+
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
         if request.requests.status_code == 200:
             if verbose:
@@ -105,13 +93,7 @@ class _ExperimentManager(object):
 
         address = 'ExperimentManager/API/deleteElement'
 
-        request = RequestAPI(ip=self.ip,
-                             port=self.port,
-                             address=address,
-                             token=self.token,
-                             mode=HTTP_TYPE.POST,
-                             secure=self.secure,
-                             params=params)
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
         if request.requests.status_code == 200:
             if verbose:
@@ -123,16 +105,24 @@ class _ExperimentManager(object):
 
         address = 'ExperimentManager/API/getCurveMatching'
 
-        request = RequestAPI(ip=self.ip,
-                             port=self.port,
-                             address=address,
-                             token=self.token,
-                             mode=HTTP_TYPE.POST,
-                             secure=self.secure,
-                             params=params)
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
         if request.requests.status_code == 200:
             if verbose:
                 print('Get Curve Matching executed successfully.')
+
+        return json.loads(request.requests.text)
+
+    def getSimulation(self, experiment, verbose=False):
+        experiment_id = experiment if type(experiment) == int else experiment.id
+        params = {'exp_id': experiment_id}
+
+        address = 'ExperimentManager/API/getSimulation'
+
+        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
+
+        if request.requests.status_code == 200:
+            if verbose:
+                print('Get Simulation executed successfully.')
 
         return json.loads(request.requests.text)

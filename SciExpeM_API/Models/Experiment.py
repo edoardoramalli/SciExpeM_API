@@ -25,7 +25,7 @@ class Experiment:
             else Tool.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species), refresh=refresh)
         self._common_properties = common_properties if Tool.checkListType(data_columns, CommonProperty) \
             else Tool.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
-        self._file_paper = file_paper if isinstance(file_paper, FilePaper) else \
+        self._file_paper = file_paper if isinstance(file_paper, FilePaper) or file_paper is None else \
             Tool.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]), refresh=refresh)[0]
 
         # Simple
@@ -42,10 +42,37 @@ class Experiment:
         self._p_inf = p_inf
         self._p_sup = p_sup
         self._comment = comment
-        self._experiment_interpreter = None
+        self._experiment_interpreter = None  # TODO controllare
         self._status = None
         self._xml_file = None
         self._username = None
+        self._experiment_data = None
+
+
+    @property
+    def experimental_data(self):
+        if self._experiment_data is None:
+            if self._data_columns:
+                tmp = []
+                columns = [dc for dc in self._data_columns if dc.dg_label == 'experimental_data']
+                dg_groups = {}
+                for dc in columns:
+                    dg_groups[dc.dg_id] = dg_groups.get(dc.dg_id, []) + [dc]
+                for dg in dg_groups:
+                    diz = {}
+                    for dc in dg_groups[dg]:
+                        dc_diz = dc.diz
+                        diz['{} [{}]'.format(dc_diz['header'], dc_diz['units'])] = dc_diz['data']
+                    df = pd.DataFrame(diz)
+                    tmp.append(df)
+                return tmp
+
+            else:
+                return self._experiment_data
+
+        else:
+            return self._experiment_data
+
 
     @property
     def id(self):
@@ -204,18 +231,28 @@ class Experiment:
     def data_columns(self):
         return self._data_columns
 
-    def data_columns_df(self, data_columns_list):
+    @property
+    def data_columns_df(self):
         data_columns_group_ids = set([])
-        for column in data_columns_list:
+        dg = {}
+        for column in self._data_columns:
+            name = column.name
+            unit = column.units
+            species = column.species
+            dg_id = column.dg_id
+
+
             data_columns_group_ids.add(column.dg_id)
 
         results = {}
         units = {}
+
+        dg = {}
         for group_id in data_columns_group_ids:
             results[group_id] = pd.DataFrame()
             units[group_id] = {}
 
-        for column in data_columns_list:
+        for column in self._data_columns:
             results[column.dg_id][column.name] = column.data
             units[column.dg_id][column.label] = column.units
 
