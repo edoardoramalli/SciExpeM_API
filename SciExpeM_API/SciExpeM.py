@@ -2,13 +2,13 @@ from SciExpeM_API.Utility.RequestAPI import HTTP_TYPE, RequestAPI
 from SciExpeM_API.Utility.Tools import optimize
 from SciExpeM_API.Utility.User import User
 from SciExpeM_API.Utility import settings
-from SciExpeM_API.Views import _ExperimentManager, _ReSpecTh
+from SciExpeM_API.Views import _ExperimentManager, _ReSpecTh, _OpenSmoke
 
 import os
 import json
 
 
-class SciExpeM(_ExperimentManager, _ReSpecTh):
+class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
     __instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -124,55 +124,6 @@ class SciExpeM(_ExperimentManager, _ReSpecTh):
             if verbose:
                 print(json.loads(request.requests.text))
 
-    def startSimulation(self, experiment, chemModel, verbose=False):
-        experiment_id = experiment if type(experiment) == int else experiment.id
-        chemModel_id = chemModel if type(chemModel) == int else chemModel.id
-
-        params = {'experiment': experiment_id, 'chemModel': chemModel_id}
-
-        address = 'OpenSmoke/API/startSimulation'
-
-        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
-
-        if request.requests.status_code == 200:
-            if verbose:
-                print(json.loads(request.requests.text))
-        else:
-            return False
-
-    def createFolderSimulation(self, experiment, chemModel, verbose=False):
-        experiment_id = experiment if type(experiment) == int else experiment.id
-        chemModel_id = chemModel if type(chemModel) == int else chemModel.id
-
-        params = {'experiment': experiment_id, 'chemModel': chemModel_id}
-
-        address = 'OpenSmoke/API/createFolderSimulation'
-
-        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
-
-        if request.requests.status_code == 200:
-            if verbose:
-                print(json.loads(request.requests.text))
-        else:
-            return False
-
-
-    def initializeSimulation(self, experiment, chemModel, verbose=False):
-        experiment_id = experiment if type(experiment) == int else experiment.id
-        chemModel_id = chemModel if type(chemModel) == int else chemModel.id
-
-        params = {'experiment': experiment_id, 'chemModel': chemModel_id}
-
-        address = 'OpenSmoke/API/initializeSimulation'
-
-        request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
-
-        if request.requests.status_code == 200:
-            if verbose:
-                print(request.requests.text)
-            return True
-        else:
-            return False
 
     def executeCurveMatching(self, x_sim: list, y_sim: list, x_exp: list,
                              y_exp: list,
