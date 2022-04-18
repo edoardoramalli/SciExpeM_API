@@ -47,6 +47,7 @@ class Experiment:
         self._xml_file = None
         self._username = None
         self._experiment_data = None
+        self._pairs = None
 
 
     @property
@@ -77,6 +78,29 @@ class Experiment:
     @property
     def id(self):
         return self._id
+
+    @property
+    def pairs(self):
+        
+        dg = {}
+
+        for dc in self.data_columns:
+            dg[dc.dg_id] = dg.get(dc.dg_id, []) + [dc]
+
+        pairs = []
+
+        for dg_id in dg:
+            x = None
+            for dc in dg[dg_id]:
+                if dc.is_x:
+                    x = dc
+                    break
+            dg[dg_id].remove(x)
+            for dc in dg[dg_id]:
+                pairs.append({'x': x, 'y': dc})
+
+        return pairs
+    
 
     @property
     def username(self):

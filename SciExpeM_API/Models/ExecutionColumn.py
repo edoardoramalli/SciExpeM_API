@@ -11,6 +11,8 @@ class ExecutionColumn:
         self._label = None
         self._units = None
         self._execution = None
+        self._is_x = None
+        self._is_y = None
 
     def set_execution(self, execution):
         self._execution = execution
@@ -22,6 +24,22 @@ class ExecutionColumn:
     @property
     def execution(self):
         return self._execution
+
+    @property
+    def is_x(self):
+        if not self._is_x:
+            self._is_x = Tool.getProperty(self.__class__.__name__, self.id, 'is_x')
+            return self._is_x
+        else:
+            return self._is_x
+
+    @property
+    def is_y(self):
+        if not self._is_y:
+            self._is_y = Tool.getProperty(self.__class__.__name__, self.id, 'is_y')
+            return self._is_y
+        else:
+            return self._is_y
 
     @property
     def data(self):
