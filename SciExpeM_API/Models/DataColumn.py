@@ -80,8 +80,8 @@ class DataColumn:
     @property
     def data(self):
         if not self._data:
-            self._data = Tool.getProperty(self.__class__.__name__, self.id, 'data')
-            return json.loads(self._data)
+            self._data = json.loads(Tool.getProperty(self.__class__.__name__, self.id, 'data'))
+            return self._data
         else:
             return self._data
 

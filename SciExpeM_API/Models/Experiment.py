@@ -95,6 +95,10 @@ class Experiment:
                 if dc.is_x:
                     x = dc
                     break
+
+            if x is None: # Se il data group è un profilo
+                continue
+
             dg[dg_id].remove(x)
             for dc in dg[dg_id]:
                 pairs.append({'x': x, 'y': dc})

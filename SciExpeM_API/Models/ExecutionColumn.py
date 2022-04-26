@@ -1,5 +1,5 @@
 import SciExpeM_API.Utility.Tools as Tool
-
+import json
 
 class ExecutionColumn:
     def __init__(self, id=None):
@@ -44,7 +44,7 @@ class ExecutionColumn:
     @property
     def data(self):
         if not self._data:
-            self._data = Tool.getProperty(self.__class__.__name__, self.id, 'data')
+            self._data = json.loads(Tool.getProperty(self.__class__.__name__, self.id, 'data'))
             return self._data
         else:
             return self._data
