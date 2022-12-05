@@ -11,3 +11,4 @@ from .ExperimentInterpreter import ExperimentInterpreter
 from .RuleInterpreter import RuleInterpreter
 from .MappingInterpreter import MappingInterpreter
 from .Specie import Specie
+from .ExperimentBackUp import ExperimentBackUp

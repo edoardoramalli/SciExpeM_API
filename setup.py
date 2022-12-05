@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SciExpeM_API",
-    version="2.0.3.2",
+    version="2.0.3.4",
     author="Edoardo Ramalli",
     author_email="edoardo.ramalli@polimi.it",
     description="Python wrapper for SciExpeM EndPoints",

@@ -36,11 +36,11 @@ class _OpenSmoke(object):
             return False
 
 
-    def initializeSimulation(self, experiment, chemModel, verbose=False):
+    def initializeSimulation(self, experiment, chemModel, backup_chemModel=None, verbose=False):
         experiment_id = experiment if type(experiment) == int else experiment.id
         chemModel_id = chemModel if type(chemModel) == int else chemModel.id
 
-        params = {'experiment': experiment_id, 'chemModel': chemModel_id}
+        params = {'experiment': experiment_id, 'chemModel': chemModel_id, 'backup_chemModel': backup_chemModel}
 
         address = 'OpenSmoke/API/initializeSimulation'
 

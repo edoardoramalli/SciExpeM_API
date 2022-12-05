@@ -1,5 +1,5 @@
 # SciExpeM_API
-API Python wrapper for [SciExpeM](https://sciexpem.chem.polimi.it)
+API Python wrapper for [SciExpeM](https://sciexpem.polimi.it)
 
 # Install using 'pip'
 ```sh

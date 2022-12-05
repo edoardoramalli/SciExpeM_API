@@ -14,7 +14,7 @@ class Experiment:
                  refresh=False,
                  reactor: str = None, fileDOI: str = None, ignition_type: str = None,
                  os_input_file: str = None, experiment_type: str = None,
-                 fuels: list = None, phi_inf: float = None, phi_sup: float = None, t_inf: float = None,
+                 fuels: set = None, phi_inf: float = None, phi_sup: float = None, t_inf: float = None,
                  t_sup: float = None, p_inf: float = None, p_sup: float = None, comment: str = None):
         self._id = id
 
@@ -96,12 +96,13 @@ class Experiment:
                     x = dc
                     break
 
-            if x is None: # Se il data group è un profilo
+            if x is None:  # Se il data group è un profilo
                 continue
 
             dg[dg_id].remove(x)
             for dc in dg[dg_id]:
-                pairs.append({'x': x, 'y': dc})
+                if dc.is_y:
+                    pairs.append({'x': x, 'y': dc})
 
         return pairs
     

@@ -68,6 +68,7 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
         self.MappingInterpreter = {}
         self.RuleInterpreter = {}
         self.Specie = {}
+        self.ExperimentBackUp = {}
 
     def getUserInfo(self, username: str, password: str):
 
@@ -186,18 +187,27 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
 
     def prova(self, verbose=False):
 
-        params = {'exp_list': [409, 410],
-                  'chemModel_list': []}
+        params = {
+            # 'query': {'execution_column__label': 'fv(L)', 'execution_column__execution__experiment__fuels': ['C2H4'], 'execution_column__execution__chemModel__id': 125},
+            # 'chemModel_id': 125,
+            # 'models': [125, -1]
+            'element_id': 13701
+
+        }
 
         # address = 'CrowdSourcing/API/getNextQuestion'
 
-        address = 'ExperimentManager/API/prova'
+        # address = 'frontend/API/getIntervalAnalysis'
+
+        address = 'frontend/API/getPlotExecution'
 
         request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
         if request.requests.status_code == 200:
             if verbose:
                 print('ok')
+
+        print(json.loads(request.requests.text))
 
         # with open('edoardo.zip', 'wb') as fd:
         #     for chunk in request.requests.iter_content(chunk_size=128):
