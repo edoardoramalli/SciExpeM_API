@@ -5,7 +5,8 @@
 Tiziano told me to ease all the possible stuff. I am not good at that after all!
 
 ## How?
-
+Install DOCKER if you dont'have it --> have it!
+Download here (https://www.docker.com)
  ```sh
 git clone https://github.com/edoardoramalli/SciExpeM_API.git
 cd SciExpeM_API/scidocekrexpem
