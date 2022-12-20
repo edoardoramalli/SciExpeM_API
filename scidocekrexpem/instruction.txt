@@ -1,0 +1,12 @@
+https://hub.docker.com/r/continuumio/miniconda/#!
+https://stackoverflow.com/questions/55951177/miniconda-with-dockerfile-how-to-use-the-conda-environment
+https://pythonspeed.com/articles/activate-conda-dockerfile/
+https://towardsdatascience.com/conda-pip-and-docker-ftw-d64fe638dc45
+
+docker build --platform=linux/amd64 -t sciexpem/sciexpem:latest -f Dockerfile .
+docker run -it --platform=linux/amd64 --name sciexpem --rm -h sciexpem sciexpem/sciexpem:latest
+
+
+
+
+
