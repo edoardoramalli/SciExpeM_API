@@ -8,11 +8,11 @@ USER root
 RUN apt-get -y update && \
     apt-get install -y \
     g++ \
+    gcc \
     git \
     vim \
     bash-completion \
     sudo \
-    cmake \
     nano \
     wget
 
