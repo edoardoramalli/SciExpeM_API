@@ -4,8 +4,8 @@ https://pythonspeed.com/articles/activate-conda-dockerfile/
 https://towardsdatascience.com/conda-pip-and-docker-ftw-d64fe638dc45
 
 docker build --platform=linux/amd64 -t sciexpem/sciexpem:latest -f Dockerfile .
-docker run -it --platform=linux/amd64 --name sciexpem --rm -h sciexpem sciexpem/sciexpem:latest
-
+docker run -it --platform=linux/amd64 --name sciexpem --rm -v volSCIEXPEM:/home/sciexpem -h sciexpem sciexpem/sciexpem:latest
+-v volOpenSMOKE:/home/opensmoke
 
 
 
