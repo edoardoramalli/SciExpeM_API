@@ -191,7 +191,9 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
             # 'query': {'execution_column__label': 'fv(L)', 'execution_column__execution__experiment__fuels': ['C2H4'], 'execution_column__execution__chemModel__id': 125},
             # 'chemModel_id': 125,
             # 'models': [125, -1]
-            'element_id': 13701
+            # 'element_id': 13701,
+            'exp_id': 2909,
+            # 'exp_id': 205,
 
         }
 
@@ -199,7 +201,9 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
 
         # address = 'frontend/API/getIntervalAnalysis'
 
-        address = 'frontend/API/getPlotExecution'
+        # address = 'frontend/API/getExecutionColumn'
+
+        address = 'frontend/API/getPlotExperiment'
 
         request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
@@ -207,7 +211,15 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
             if verbose:
                 print('ok')
 
-        print(json.loads(request.requests.text))
+        # print(json.loads(request.requests.text))
+
+        a = json.loads(request.requests.text)
+
+        # for f in a:
+        #     print(f)
+
+        print(a)
+
 
         # with open('edoardo.zip', 'wb') as fd:
         #     for chunk in request.requests.iter_content(chunk_size=128):
