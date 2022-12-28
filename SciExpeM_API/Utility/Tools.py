@@ -15,6 +15,7 @@ def getProperty(model_name, element_id, property_name):
 
 
 def optimize(database, model_name, text, refresh=False):
+
     model = eval(model_name)
     refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment', 'DataColumn', 'Specie', 'ExperimentBackUp']
     if model in refresh_models:
@@ -47,20 +48,19 @@ def serialize(obj, exclude):
     for key, value in diz.items():
         if type(value) == list:
             for x in value:
-                if not isinstance(x, int) and not isinstance(x, str):
+                if not isinstance(x, int) and not isinstance(x, str) and not isinstance(x, float): # WARNING: possible bug 
                     tmp[key] = tmp.get(key, []) + [x.serialize()]
                 else:
                     tmp[key] = tmp.get(key, []) + [x]
             # tmp[key] = [x.serialize() if not isinstance(x, int) or not isinstance(x, str) else x for x in value]
         else:
-            if isinstance(value, FilePaper):
+            if isinstance(value, FilePaper) or (isinstance(value, DataColumn) and key == 'uncertainty_reference') or (isinstance(value, Specie)):
                 tmp[key] = value.serialize()
             else:
                 tmp[key] = value
     # diz = {key: [x.serialize() if not isinstance(x, int) else x for x in value] if type(value) == list else value for key, value in diz.items()}
 
     return tmp
-
 
 def checkListType(obj, check_type):
     return all(isinstance(x, check_type) for x in obj)
