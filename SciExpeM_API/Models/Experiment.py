@@ -10,20 +10,21 @@ import json
 
 class Experiment:
 
-    def __init__(self, id: int = None, data_columns=None, file_paper=None, initial_species=None, common_properties=None,
-                 refresh=False,
-                 reactor: str = None, fileDOI: str = None, ignition_type: str = None,
-                 os_input_file: str = None, experiment_type: str = None,
-                 fuels: set = None, phi_inf: float = None, phi_sup: float = None, t_inf: float = None,
-                 t_sup: float = None, p_inf: float = None, p_sup: float = None, comment: str = None):
+    def __init__(self, id: int = None, data_columns=None, file_paper=None, initial_species=None, 
+                common_properties=None, refresh=False, reactor: str = None, 
+                fileDOI: str = None, ignition_type: str = None,
+                os_input_file: str = None, experiment_type: str = None,
+                fuels: set = None, phi_inf: float = None, phi_sup: float = None, 
+                t_inf: float = None, t_sup: float = None, p_inf: float = None, 
+                p_sup: float = None, comment: str = None):
+        
         self._id = id
-
         # Object
         self._data_columns = data_columns if Tool.checkListType(data_columns, DataColumn) \
             else Tool.optimize(settings.DB, 'DataColumn', json.dumps(data_columns), refresh=refresh)
-        self._initial_species = initial_species if Tool.checkListType(data_columns, InitialSpecie) \
+        self._initial_species = initial_species if Tool.checkListType(initial_species, InitialSpecie) \
             else Tool.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species), refresh=refresh)
-        self._common_properties = common_properties if Tool.checkListType(data_columns, CommonProperty) \
+        self._common_properties = common_properties if Tool.checkListType(common_properties, CommonProperty) \
             else Tool.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
         self._file_paper = file_paper if isinstance(file_paper, FilePaper) or file_paper is None else \
             Tool.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]), refresh=refresh)[0]
