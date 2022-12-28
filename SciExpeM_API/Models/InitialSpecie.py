@@ -7,12 +7,13 @@ import json
 
 class InitialSpecie:
 
-    def __init__(self, id=None, name=None, units=None, value=None, source_type=None, specie=None, refresh=False):
+    def __init__(self, id=None, name=None, units=None, value=None, source_type=None, configuration=None, specie=None, refresh=False):
         self._id = id
         self._name = name
         self._units = units
         self._value = value
         self._source_type = source_type
+        self._configuration = configuration
         self._specie = specie if isinstance(specie, Specie) else \
             Tool.optimize(settings.DB, 'Specie', json.dumps([specie]), refresh=refresh)[0]
 
@@ -52,6 +53,14 @@ class InitialSpecie:
         else:
             return self._source_type
 
+    @property
+    def configuration(self):
+        if not self._configuration:
+            self._configuration = Tool.getProperty(self.__class__.__name__, self.id, 'configuration')
+            return self._configuration
+        else:
+            return self._configuration     
+
     @classmethod
     def from_dict(cls, data_dict):
         if isinstance(data_dict, cls):
@@ -68,6 +77,7 @@ class InitialSpecie:
         self._units = None
         self._value = None
         self._source_type = None
+        self._configuration=None
 
     def serialize(self):
         return Tool.serialize(self, exclude=['id'])
