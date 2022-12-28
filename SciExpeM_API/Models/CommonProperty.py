@@ -3,11 +3,12 @@ import SciExpeM_API.Utility.Tools as Tool
 
 class CommonProperty:
 
-    def __init__(self, id=None, name=None, units=None, value=None):
+    def __init__(self, id=None, name=None, units=None, value=None, source_type=None):
         self._id = id
         self._name = name
         self._units = units
         self._value = value
+        self._source_type = source_type 
 
     @property
     def id(self):
@@ -37,6 +38,14 @@ class CommonProperty:
         else:
             return self._value
 
+    @property
+    def source_type(self):
+        if not self._value:
+            self._value = Tool.getProperty(self.__class__.__name__, self.id, 'source_type')
+            return self._value
+        else:
+            return self._value
+            
     @classmethod
     def from_dict(cls, data_dict):
         if isinstance(data_dict, cls):
@@ -48,6 +57,7 @@ class CommonProperty:
         self._name = None
         self._units = None
         self._value = None
+        self._source_type = None
 
     def serialize(self):
         return Tool.serialize(self, exclude=['id'])
