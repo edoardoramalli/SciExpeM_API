@@ -173,17 +173,15 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
 
         return json.loads(request.requests.text)
 
-    def getPropertyList(self, model_name, exp_id, fields, verbose=False):
+    def requestPropertyList(self, model_name, element_id, fields, verbose=False):
 
-        params = {'fields': fields, 'name': model_name, 'exp_id': exp_id}
+        params = {'fields': fields, 'model_name': model_name, 'element_id': element_id}
 
-        address = 'frontend/API/getPropertyList'
+        address = 'ExperimentManager/API/requestPropertyList'
 
         request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
-        if request.requests.status_code == 200:
-            if verbose:
-                print(json.loads(request.requests.text))
+        return json.loads(request.requests.text)
 
     def prova(self, verbose=False):
 
@@ -192,8 +190,9 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
             # 'chemModel_id': 125,
             # 'models': [125, -1]
             # 'element_id': 13701,
-            'exp_id': 2909,
+            'experiment_id': 2909,
             # 'exp_id': 205,
+            'type': 'data'
 
         }
 
@@ -203,7 +202,9 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
 
         # address = 'frontend/API/getExecutionColumn'
 
-        address = 'frontend/API/getPlotExperiment'
+        # address = 'frontend/API/getPlotExperiment'
+
+        address = 'frontend/API/getRawData'
 
         request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
 
