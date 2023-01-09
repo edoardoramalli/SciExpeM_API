@@ -7,7 +7,8 @@ import json
 
 class InitialSpecie:
 
-    def __init__(self, id=None, name=None, units=None, value=None, source_type=None, configuration=None, specie=None, refresh=False):
+    def __init__(self, id=None, name=None, units=None, value=None, source_type=None, 
+                configuration=None, specie=None, refresh=False):
         self._id = id
         self._name = name
         self._units = units
@@ -15,7 +16,7 @@ class InitialSpecie:
         self._source_type = source_type
         self._configuration = configuration
         self._specie = specie if isinstance(specie, Specie) else \
-            Tool.optimize(settings.DB, 'Specie', json.dumps([specie]), refresh=refresh)[0]
+            Tool.optimize(settings.DB, 'Specie', json.dumps([specie]), refresh=refresh)[0] # TODO: qui mettere species_object??????
 
     @property
     def id(self):

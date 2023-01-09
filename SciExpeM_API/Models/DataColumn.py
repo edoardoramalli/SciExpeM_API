@@ -8,7 +8,7 @@ import json
 class DataColumn:
 
     def __init__(self, id=None, name=None, units=None, data=None, dg_id=None, source_type=None, label=None,
-                 dg_label=None, species=None, uncertainty_reference=None, refresh=False, species_object=None,
+                 dg_label=None, uncertainty_reference=None, refresh=False, species_object=None,
                  data_group_profile=None, uncertainty_kind=None, uncertainty_bound=None):
         self._id = id
         self._name = name
@@ -17,7 +17,6 @@ class DataColumn:
         self._dg_id = dg_id
         self._dg_label = dg_label
         self._label = label
-        self._species = species
         self._source_type = source_type
         self._data_group_profile = data_group_profile
         self._uncertainty_kind = uncertainty_kind
@@ -28,8 +27,8 @@ class DataColumn:
 
         # -- Object
 
-        if self._species == None:
-            pass
+        if not isinstance(species_object, Specie):
+            self._species_object = species_object
         else:
             self._species_object = species_object if Tool.checkListType(species_object, Specie) \
                 else Tool.optimize(settings.DB, 'Specie', json.dumps(species_object), refresh=refresh)
@@ -74,14 +73,6 @@ class DataColumn:
             return self._data
         else:
             return self._data
-
-    @property
-    def species(self):
-        if not self._species:
-            self._species = Tool.getProperty(self.__class__.__name__, self.id, 'species')
-            return self._species
-        else:
-            return self._species
 
     @property
     def label(self):

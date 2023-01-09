@@ -60,7 +60,10 @@ class _ExperimentManager(object):
 
     def insertElement(self, obj=None, verbose=False):
 
-        params = {'model_name': obj.__class__.__name__,'property_dict': json.dumps(obj.serialize())}
+        if obj.__class__.__name__ == 'Specie':
+            params = {'model_name': obj.__class__.__name__,'property_dict': json.dumps(obj.serialize_specie())}
+        else:
+            params = {'model_name': obj.__class__.__name__,'property_dict': json.dumps(obj.serialize())}
 
         address = 'ExperimentManager/API/insertElement'
 

@@ -1,10 +1,8 @@
 import SciExpeM_API.Utility.Tools as Tool
 
-
 class Specie:
-    def __init__(self,
-                 id=None, InChI=None, preferredKey=None, formula=None, names=None, CAS=None, SMILES=None,
-                 chemName=None):
+    def __init__(self, id=None, InChI=None, preferredKey=None, formula=None, 
+                names=None, CAS=None, SMILES=None, chemName=None):
         self._id = id
         self._InChI = InChI
         self._preferredKey = preferredKey
@@ -14,7 +12,6 @@ class Specie:
         self._CAS = CAS
         self._SMILES = SMILES
         self._chemName = chemName
-
 
     @property
     def id(self):
@@ -94,8 +91,10 @@ class Specie:
         self._chemName = None
 
     def serialize(self):
-       # return Tool.serialize(self, exclude=[])
         return self._id
 
+    def serialize_specie(self):
+        return Tool.serialize(self, exclude=['id'])
+    
     def __repr__(self):
         return f'<Specie ({self.id})>'
