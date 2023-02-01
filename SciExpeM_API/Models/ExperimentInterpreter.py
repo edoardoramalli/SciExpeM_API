@@ -2,7 +2,6 @@ import SciExpeM_API.Utility.Tools as Tool
 from SciExpeM_API.Utility import settings
 import json
 
-
 class ExperimentInterpreter:
 
     def __init__(self, id=None, mappings=None, rules=None, name=None, model_type=None, solver=None, refresh=False):
@@ -10,11 +9,16 @@ class ExperimentInterpreter:
         self._name = name
         self._model_type = model_type
         self._solver = solver
-        self._mappings = mappings if isinstance(mappings, list) else Tool.optimize(settings.DB, 'MappingInterpreter',
-                                                                                   json.dumps(mappings),
-                                                                                   refresh=refresh)
-        self._rules = rules if isinstance(rules, list) else Tool.optimize(settings.DB, 'RuleInterpreter',
-                                                                          json.dumps(rules), refresh=refresh)
+        
+        self._mappings = mappings if isinstance(mappings, list) or mappings is None \
+                                    else Tool.optimize(settings.DB, 'MappingInterpreter',
+                                                       json.dumps(mappings),
+                                                       refresh=refresh)
+
+        self._rules = rules if isinstance(rules, list) or rules is None \
+                            else Tool.optimize(settings.DB, 'RuleInterpreter', 
+                                               json.dumps(rules), 
+                                               refresh=refresh)
 
     @property
     def id(self):
