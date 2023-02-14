@@ -12,7 +12,7 @@ class Experiment:
 
     def __init__(self, id: int = None, data_columns=None, file_paper=None, initial_species=None, 
                 common_properties=None, refresh=False, reactor: str = None, 
-                fileDOI: str = None, ignition_type: str = None,
+                reactor_modes: str = None, fileDOI: str = None, ignition_type: str = None,
                 os_input_file: str = None, experiment_type: str = None,
                 fuels: set = None, phi_inf: float = None, phi_sup: float = None, 
                 t_inf: float = None, t_sup: float = None, p_inf: float = None, 
@@ -32,6 +32,7 @@ class Experiment:
         # Simple
         self._experiment_type = experiment_type
         self._reactor = reactor
+        self._reactor_modes = reactor_modes # Pay attention some of the experiments does not have reactor modes
         self._fileDOI = fileDOI
         self._ignition_type = ignition_type
         self._os_input_file = os_input_file
@@ -227,6 +228,14 @@ class Experiment:
             return self._reactor
         else:
             return self._reactor
+
+    @property
+    def reactor_modes(self):
+        if not self._reactor_modes:
+            self._reactor_modes = Tool.getProperty('Experiment', self.id, 'reactor_modes')
+            return self._reactor_modes
+        else:
+            return self._reactor_modes
 
     @property
     def experiment_type(self):
