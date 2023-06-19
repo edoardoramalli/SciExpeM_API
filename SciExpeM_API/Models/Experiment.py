@@ -6,6 +6,7 @@ from .CommonProperty import CommonProperty
 import SciExpeM_API.Utility.Tools as Tool
 from SciExpeM_API.Utility import settings
 import json
+import warnings
 
 
 class Experiment:
@@ -183,12 +184,13 @@ class Experiment:
 
     @property
     def fuels(self):
+        warnings.warn('Fuel property will be removed take care!')
         if not self._fuels:
             self._fuels = Tool.getProperty('Experiment', self.id, 'fuels')
             return self._fuels
         else:
             return self._fuels
-
+        
     @property
     def os_input_file(self):
         if not self._os_input_file:

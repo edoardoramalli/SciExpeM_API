@@ -1,6 +1,6 @@
 import SciExpeM_API.Utility.Tools as Tool
 import pandas as pd
-from .Specie import Specie
+from .Species import Species
 from SciExpeM_API.Utility import settings
 import json
 
@@ -8,15 +8,15 @@ import json
 class InitialSpecie:
 
     def __init__(self, id=None, name=None, units=None, value=None, source_type=None, 
-                configuration=None, specie=None, refresh=False):
+                configuration=None, species=None, refresh=False):
         self._id = id
         self._name = name
         self._units = units
         self._value = value
         self._source_type = source_type
         self._configuration = configuration
-        self._specie = specie if isinstance(specie, Specie) else \
-            Tool.optimize(settings.DB, 'Specie', json.dumps([specie]), refresh=refresh)[0] # TODO: qui mettere species_object??????
+        self._species = species if isinstance(species, Species) else \
+            Tool.optimize(settings.DB, 'Species', json.dumps([species]), refresh=refresh)[0] # TODO: qui mettere species_object??????
 
     @property
     def id(self):

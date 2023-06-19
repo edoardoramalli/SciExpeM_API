@@ -1,6 +1,6 @@
 import SciExpeM_API.Utility.Tools as Tool
 from SciExpeM_API.Utility import settings
-from .Specie import Specie
+from .Species import Species
 
 import json
 
@@ -27,11 +27,11 @@ class DataColumn:
 
         # -- Object
 
-        if not isinstance(species_object, Specie):
+        if not isinstance(species_object, Species):
             self._species_object = species_object
         else:
-            self._species_object = species_object if Tool.checkListType(species_object, Specie) \
-                else Tool.optimize(settings.DB, 'Specie', json.dumps(species_object), refresh=refresh)
+            self._species_object = species_object if Tool.checkListType(species_object, Species) \
+                else Tool.optimize(settings.DB, 'Species', json.dumps(species_object), refresh=refresh)
 
         if isinstance(uncertainty_reference, DataColumn):
             self._uncertainty_reference = uncertainty_reference

@@ -10,5 +10,5 @@ from .DataColumn import DataColumn
 from .ExperimentInterpreter import ExperimentInterpreter
 from .RuleInterpreter import RuleInterpreter
 from .MappingInterpreter import MappingInterpreter
-from .Specie import Specie
+from .Species import Species
 from .ExperimentBackUp import ExperimentBackUp

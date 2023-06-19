@@ -1,6 +1,6 @@
 import SciExpeM_API.Utility.Tools as Tool
 
-class Specie:
+class Species:
     def __init__(self, id=None, InChI=None, preferredKey=None, formula=None, 
                 names=None, CAS=None, SMILES=None, chemName=None):
         self._id = id
@@ -20,7 +20,7 @@ class Specie:
     @property
     def InChI(self):
         if not self._InChI:
-            self._InChI = Tool.getProperty('Specie', self.id, 'InChI')
+            self._InChI = Tool.getProperty(self.__class__.__name__, self.id, 'InChI')
             return self._InChI
         else:
             return self._InChI
@@ -28,7 +28,7 @@ class Specie:
     @property
     def preferredKey(self):
         if not self._preferredKey:
-            self._preferredKey = Tool.getProperty('Specie', self.id, 'preferredKey')
+            self._preferredKey = Tool.getProperty(self.__class__.__name__, self.id, 'preferredKey')
             return self._preferredKey
         else:
             return self._preferredKey
@@ -36,7 +36,7 @@ class Specie:
     @property
     def formula(self):
         if not self._formula:
-            self._formula = Tool.getProperty('Specie', self.id, 'formula')
+            self._formula = Tool.getProperty(self.__class__.__name__, self.id, 'formula')
             return self._formula
         else:
             return self._formula
@@ -44,7 +44,7 @@ class Specie:
     @property
     def names(self):
         if not self._names:
-            self._names = Tool.getProperty('Specie', self.id, 'names')
+            self._names = Tool.getProperty(self.__class__.__name__, self.id, 'names')
             return self._names
         else:
             return self._names
@@ -52,7 +52,7 @@ class Specie:
     @property
     def CAS(self):
         if not self._CAS:
-            self._CAS = Tool.getProperty('Specie', self.id, 'CAS')
+            self._CAS = Tool.getProperty(self.__class__.__name__, self.id, 'CAS')
             return self._CAS
         else:
             return self._CAS
@@ -60,7 +60,7 @@ class Specie:
     @property
     def SMILES(self):
         if not self._SMILES:
-            self._SMILES = Tool.getProperty('Specie', self.id, 'SMILES')
+            self._SMILES = Tool.getProperty(self.__class__.__name__, self.id, 'SMILES')
             return self._SMILES
         else:
             return self._SMILES
@@ -68,7 +68,7 @@ class Specie:
     @property
     def chemName(self):
         if not self._chemName:
-            self._chemName = Tool.getProperty('Specie', self.id, 'chemName')
+            self._chemName = Tool.getProperty(self.__class__.__name__, self.id, 'chemName')
             return self._chemName
         else:
             return self._chemName
@@ -78,7 +78,7 @@ class Specie:
         if isinstance(data_dict, cls):
             return data_dict
         else:
-            return cls(**data_dict)
+            return cls(*data_dict)
 
     def refresh(self):
         self._InChI = None
