@@ -22,6 +22,7 @@ class DataColumn:
         self._uncertainty_kind = uncertainty_kind
         self._uncertainty_bound = uncertainty_bound
 
+        self._diz = None
         self._is_x = None
         self._is_y = None
 
@@ -42,6 +43,18 @@ class DataColumn:
             else:
                 self._uncertainty_reference = None
 
+    @property
+    def diz(self):
+        if not self._diz:
+            self._diz = { 
+                'header': self.name if self.name != 'composition' else '+'.join([species['preferredKey'] for species in self._species_object]),
+                'units': self.units,
+                'data': self.data
+            }   
+            return self._diz
+        else:
+            return self._diz
+        
     @property
     def id(self):
         return self._id
