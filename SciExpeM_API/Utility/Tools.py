@@ -16,7 +16,13 @@ def getProperty(model_name, element_id, property_name):
 
 def optimize(database, model_name, text, refresh=False):
     model = eval(model_name)
-    refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment', 'DataColumn', 'Specie', 'ExperimentBackUp']
+    refresh_models = ['CurveMatchingResult', 
+                    'Execution', 
+                    'Experiment', 
+                    'DataColumn', 
+                    'Species', 
+                    'ExperimentBackUp',
+                    ]
     if model in refresh_models:
         text['refresh'] = refresh
     data_structure = json.loads(text)

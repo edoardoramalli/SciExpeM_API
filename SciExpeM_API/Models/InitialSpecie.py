@@ -15,6 +15,7 @@ class InitialSpecie:
         self._value = value
         self._source_type = source_type
         self._configuration = configuration
+        
         self._species = species if isinstance(species, Species) else \
             Tool.optimize(settings.DB, 'Species', json.dumps([species]), refresh=refresh)[0] # TODO: qui mettere species_object??????
 
@@ -70,8 +71,8 @@ class InitialSpecie:
             return cls(**data_dict)
 
     @property
-    def specie(self):
-        return self._specie
+    def species(self):
+        return self._species
 
     def refresh(self):
         self._name = None
