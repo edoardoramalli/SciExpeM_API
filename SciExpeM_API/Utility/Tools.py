@@ -59,7 +59,7 @@ def serialize(obj, exclude):
                     tmp[key] = tmp.get(key, []) + [x]
             # tmp[key] = [x.serialize() if not isinstance(x, int) or not isinstance(x, str) else x for x in value]
         else:
-            if isinstance(value, FilePaper) or (isinstance(value, DataColumn) and key == 'uncertainty_reference') or (isinstance(value, Specie)):
+            if isinstance(value, FilePaper) or (isinstance(value, DataColumn) and key == 'uncertainty_reference') or (isinstance(value, Species)):
                 tmp[key] = value.serialize()
             else:
                 tmp[key] = value
