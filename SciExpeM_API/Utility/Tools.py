@@ -16,7 +16,13 @@ def getProperty(model_name, element_id, property_name):
 
 def optimize(database, model_name, text, refresh=False):
     model = eval(model_name)
-    refresh_models = ['CurveMatchingResult', 'Execution', 'Experiment', 'DataColumn', 'Specie', 'ExperimentBackUp']
+    refresh_models = ['CurveMatchingResult', 
+                    'Execution', 
+                    'Experiment', 
+                    'DataColumn', 
+                    'Species', 
+                    'ExperimentBackUp',
+                    ]
     if model in refresh_models:
         text['refresh'] = refresh
     data_structure = json.loads(text)
@@ -53,7 +59,7 @@ def serialize(obj, exclude):
                     tmp[key] = tmp.get(key, []) + [x]
             # tmp[key] = [x.serialize() if not isinstance(x, int) or not isinstance(x, str) else x for x in value]
         else:
-            if isinstance(value, FilePaper) or (isinstance(value, DataColumn) and key == 'uncertainty_reference') or (isinstance(value, Specie)):
+            if isinstance(value, FilePaper) or (isinstance(value, DataColumn) and key == 'uncertainty_reference') or (isinstance(value, Species)):
                 tmp[key] = value.serialize()
             else:
                 tmp[key] = value

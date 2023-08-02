@@ -18,9 +18,28 @@ class Execution:
         # self._execution_columns_df, self.execution_columns_units = self.execution_columns_df(self.ExecutionColumn)
         # self.execution_columns_df = self.execution_columns_df(self.ExecutionColumn)
 
+        self._diz = None
         self._execution_start = None
         self._execution_end = None
         self._username = None
+
+    @property
+    def simulation_results(self):
+        execution_columns_files = set([])
+        for column in self._execution_columns:
+            execution_columns_files.add(column.file_type)
+
+        results = {}
+        units = {}
+        for file in execution_columns_files:
+            results[file] = pd.DataFrame()
+            units[file] = {}
+
+        for column in self._execution_columns:
+            results[column.file_type][column.label] = column.data  # , dtype=SI(column.units).units)
+            units[column.file_type][column.label] = column.units
+
+        return results, units
 
     @property
     def username(self):

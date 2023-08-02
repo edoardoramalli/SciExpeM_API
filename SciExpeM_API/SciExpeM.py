@@ -67,7 +67,7 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
         self.ExperimentInterpreter = {}
         self.MappingInterpreter = {}
         self.RuleInterpreter = {}
-        self.Specie = {}
+        self.Species = {}
         self.ExperimentBackUp = {}
 
     def getUserInfo(self, username: str, password: str):
