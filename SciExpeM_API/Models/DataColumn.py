@@ -54,7 +54,7 @@ class DataColumn:
             return self._diz
         else:
             return self._diz
-        
+ 
     @property
     def id(self):
         return self._id

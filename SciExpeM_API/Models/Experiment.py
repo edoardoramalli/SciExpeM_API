@@ -1,6 +1,7 @@
 import pandas as pd
 from .DataColumn import DataColumn
 from .FilePaper import FilePaper
+from .Species import Species
 from .InitialSpecie import InitialSpecie
 from .CommonProperty import CommonProperty
 import SciExpeM_API.Utility.Tools as Tool
@@ -15,7 +16,7 @@ class Experiment:
                 common_properties=None, refresh=False, reactor: str = None, 
                 reactor_modes: str = None, fileDOI: str = None, ignition_type: str = None,
                 os_input_file: str = None, experiment_type: str = None,
-                fuels: set = None, phi_inf: float = None, phi_sup: float = None, 
+                fuels: set = None, fuels_object=None, phi_inf: float = None, phi_sup: float = None, 
                 t_inf: float = None, t_sup: float = None, p_inf: float = None, 
                 p_sup: float = None, comment: str = None):
         
@@ -29,6 +30,12 @@ class Experiment:
             else Tool.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
         self._file_paper = file_paper if isinstance(file_paper, FilePaper) or file_paper is None else \
             Tool.optimize(settings.DB, 'FilePaper', json.dumps([file_paper]), refresh=refresh)[0]
+        
+        if not isinstance(fuels_object, Species):
+            self._fuels_object = fuels_object
+        else:
+            self._fuels_object = fuels_object if Tool.checkListType(fuels_object, Species) \
+                else Tool.optimize(settings.DB, 'Species', json.dumps(fuels_object), refresh=refresh)
 
         # Simple
         self._experiment_type = experiment_type
@@ -190,7 +197,11 @@ class Experiment:
             return self._fuels
         else:
             return self._fuels
-        
+    
+    @property
+    def fuels_object(self):
+        return self._fuels_object
+   
     @property
     def os_input_file(self):
         if not self._os_input_file:
