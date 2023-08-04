@@ -21,7 +21,10 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
     def __init__(self, ip: str = 'sciexpem.chem.polimi.it',
                  port: int = '443',
                  secure: bool = True,
-                 token: str = None, username: str = None, password: str = None, verify: bool = True,
+                 token: str = None,
+                 username: str = None,
+                 password: str = None,
+                 verify: bool = True,
                  warning: bool = True):
 
         SciExpeM.__instance = self

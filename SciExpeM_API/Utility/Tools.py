@@ -10,7 +10,6 @@ def getProperty(model_name, element_id, property_name):
     address = 'ExperimentManager/API/requestProperty'
 
     request = rAPI.RequestAPI(address=address, mode=rAPI.HTTP_TYPE.POST, params=params)
-
     return json.loads(request.requests.text) if json.loads(request.requests.text) != '' else None
 
 
@@ -30,7 +29,7 @@ def optimize(database, model_name, text, refresh=False):
         return None
     tmp = [model.from_dict(element) for element in data_structure]
     result = []
-
+    # TODO cambiare attribute ha un nome sbagliato
     for element in tmp:
         attribute = getattr(database, model_name)
         if element.id in attribute:
@@ -67,6 +66,6 @@ def serialize(obj, exclude):
 
     return tmp
 
-
 def checkListType(obj, check_type):
     return all(isinstance(x, check_type) for x in obj)
+

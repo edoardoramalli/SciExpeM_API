@@ -19,7 +19,6 @@ class _ExperimentManager(object):
         address = 'ExperimentManager/API/filterDataBase'
 
         request = RequestAPI(address=address, mode=HTTP_TYPE.POST, params=params)
-
         if request.status_code != 200:
             return []
         else:
