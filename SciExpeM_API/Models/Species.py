@@ -20,7 +20,7 @@ class Species:
     @property
     def InChI(self):
         if not self._InChI:
-            self._InChI = Tool.getProperty(self.__class__.__name__, self.id, 'InChI')
+            self._InChI = Tool.getProperty(self.__class__.__name__, self._id, 'InChI')
             return self._InChI
         else:
             return self._InChI
@@ -28,7 +28,7 @@ class Species:
     @property
     def preferredKey(self):
         if not self._preferredKey:
-            self._preferredKey = Tool.getProperty(self.__class__.__name__, self.id, 'preferredKey')
+            self._preferredKey = Tool.getProperty(self.__class__.__name__, self._id, 'preferredKey')
             return self._preferredKey
         else:
             return self._preferredKey
@@ -36,7 +36,7 @@ class Species:
     @property
     def formula(self):
         if not self._formula:
-            self._formula = Tool.getProperty(self.__class__.__name__, self.id, 'formula')
+            self._formula = Tool.getProperty(self.__class__.__name__, self._id, 'formula')
             return self._formula
         else:
             return self._formula
@@ -44,7 +44,7 @@ class Species:
     @property
     def names(self):
         if not self._names:
-            self._names = Tool.getProperty(self.__class__.__name__, self.id, 'names')
+            self._names = Tool.getProperty(self.__class__.__name__, self._id, 'names')
             return self._names
         else:
             return self._names
@@ -52,7 +52,7 @@ class Species:
     @property
     def CAS(self):
         if not self._CAS:
-            self._CAS = Tool.getProperty(self.__class__.__name__, self.id, 'CAS')
+            self._CAS = Tool.getProperty(self.__class__.__name__, self._id, 'CAS')
             return self._CAS
         else:
             return self._CAS
@@ -60,7 +60,7 @@ class Species:
     @property
     def SMILES(self):
         if not self._SMILES:
-            self._SMILES = Tool.getProperty(self.__class__.__name__, self.id, 'SMILES')
+            self._SMILES = Tool.getProperty(self.__class__.__name__, self._id, 'SMILES')
             return self._SMILES
         else:
             return self._SMILES
@@ -68,7 +68,7 @@ class Species:
     @property
     def chemName(self):
         if not self._chemName:
-            self._chemName = Tool.getProperty(self.__class__.__name__, self.id, 'chemName')
+            self._chemName = Tool.getProperty(self.__class__.__name__, self._id, 'chemName')
             return self._chemName
         else:
             return self._chemName
@@ -97,4 +97,4 @@ class Species:
         return Tool.serialize(self, exclude=['id'])
     
     def __repr__(self):
-        return f'<Specie ({self.id})>'
+        return f'<Species ({self._id})>'
