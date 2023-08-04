@@ -78,7 +78,7 @@ class Species:
         if isinstance(data_dict, cls):
             return data_dict
         else:
-            return cls(*data_dict)
+            return cls(**data_dict)
 
     def refresh(self):
         self._InChI = None
@@ -93,7 +93,7 @@ class Species:
     def serialize(self):
         return self._id
 
-    def serialize_specie(self):
+    def serialize_species(self):
         return Tool.serialize(self, exclude=['id'])
     
     def __repr__(self):
