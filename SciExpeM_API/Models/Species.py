@@ -91,10 +91,10 @@ class Species:
         self._chemName = None
 
     def serialize(self):
-        return Tool.serialize(self, exclude=['id'])
+        return self._id
 
-    # def serialize_species(self):
-    #     return Tool.serialize(self, exclude=['id'])
+    def serialize_species(self):
+        return Tool.serialize(self, exclude=['id'])
     
     def __repr__(self):
         return f'<Species ({self._id})>'
