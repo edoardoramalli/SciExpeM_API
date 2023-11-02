@@ -66,7 +66,7 @@ class SciExpeM(_ExperimentManager, _ReSpecTh, _OpenSmoke):
         self.Execution = {}
         self.ExecutionColumn = {}
         self.FilePaper = {}
-        self.InitialSpecie = {}
+        self.InitialSpecies = {}
         self.ExperimentInterpreter = {}
         self.MappingInterpreter = {}
         self.RuleInterpreter = {}

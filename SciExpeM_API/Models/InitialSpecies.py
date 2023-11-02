@@ -5,7 +5,7 @@ from SciExpeM_API.Utility import settings
 import json
 
 
-class InitialSpecie:
+class InitialSpecies:
 
     def __init__(self, id=None, name=None, units=None, value=None, source_type=None, 
                 configuration=None, species=None, refresh=False):

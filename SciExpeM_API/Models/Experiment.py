@@ -2,7 +2,7 @@ import pandas as pd
 from .DataColumn import DataColumn
 from .FilePaper import FilePaper
 from .Species import Species
-from .InitialSpecie import InitialSpecie
+from .InitialSpecies import InitialSpecies
 from .CommonProperty import CommonProperty
 import SciExpeM_API.Utility.Tools as Tool
 from SciExpeM_API.Utility import settings
@@ -24,8 +24,8 @@ class Experiment:
         # Object
         self._data_columns = data_columns if Tool.checkListType(data_columns, DataColumn) \
             else Tool.optimize(settings.DB, 'DataColumn', json.dumps(data_columns), refresh=refresh)
-        self._initial_species = initial_species if Tool.checkListType(initial_species, InitialSpecie) \
-            else Tool.optimize(settings.DB, 'InitialSpecie', json.dumps(initial_species), refresh=refresh)
+        self._initial_species = initial_species if Tool.checkListType(initial_species, InitialSpecies) \
+            else Tool.optimize(settings.DB, 'InitialSpecies', json.dumps(initial_species), refresh=refresh)
         self._common_properties = common_properties if Tool.checkListType(common_properties, CommonProperty) \
             else Tool.optimize(settings.DB, 'CommonProperty', json.dumps(common_properties), refresh=refresh)
         self._file_paper = file_paper if isinstance(file_paper, FilePaper) or file_paper is None else \
